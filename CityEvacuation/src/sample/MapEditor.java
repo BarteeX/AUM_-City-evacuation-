@@ -8,16 +8,20 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
+import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
+import javafx.scene.input.MouseDragEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -29,12 +33,17 @@ public class MapEditor extends Application{
     private int width;
     private int height;
     private int pixelSize;
+    private int xPrevious = 0, yPrevious = 0;
+
     private Color actual, previous;
+    private Color underColor;
 
     private Canvas editorCanvas;
     private Canvas actualColorCanvas;
+
     private GraphicsContext gc;
     private GraphicsContext gca;
+
     private Stage primaryStage;
 
     private Button roadButton;
@@ -44,6 +53,9 @@ public class MapEditor extends Application{
     private Button backButton;
 
     private GridPane mapGrid;
+
+    private WritableImage writableImage;
+    private PixelReader pixelReader;
 
     private void setActualColor(Color actual) {
         this.actual = actual;
@@ -55,9 +67,6 @@ public class MapEditor extends Application{
 
     private void setPrimaryStage(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        this.primaryStage.setHeight(height*pixelSize*1.2);
-        this.primaryStage.setWidth(width*pixelSize*1.2);
-
     }
 
     public void setCanvas() {
@@ -65,6 +74,9 @@ public class MapEditor extends Application{
         gc = editorCanvas.getGraphicsContext2D();
         gc.setFill(Color.DARKGREEN);
         gc.fillRect(0, 0, width*pixelSize, height*pixelSize);
+
+        writableImage = new WritableImage((int)editorCanvas.getWidth(), (int) editorCanvas.getHeight());
+        pixelReader = writableImage.getPixelReader();
 
         editorCanvas.setOnMouseDragged(event -> {
             int x = (int) (event.getX()/pixelSize)*pixelSize;
@@ -93,7 +105,7 @@ public class MapEditor extends Application{
                 gc.fillRect(x, y, pixelSize, pixelSize);
             }
             if(event.isMiddleButtonDown()) {
-                gc.setFill(actual);
+                gc.setFill(Color.DARKGREEN);
                 gc.fillRect(0, 0, width*pixelSize, height*pixelSize);
             }
             if(event.isSecondaryButtonDown()) {
@@ -101,6 +113,33 @@ public class MapEditor extends Application{
                 gc.fillRect(x, y, pixelSize, pixelSize);
             }
         });
+
+        // poruszanie kursorem
+        /*editorCanvas.setOnMouseMoved(event -> {
+            int x = (int) (event.getX()/pixelSize)*pixelSize;
+            int y = (int) (event.getY()/pixelSize)*pixelSize;
+
+            if(event.isPrimaryButtonDown()) {
+                gc.setFill(actual);
+                gc.fillRect((event.getX()/pixelSize)*pixelSize, (event.getY()/pixelSize)*pixelSize, pixelSize, pixelSize);
+            } else if(event.isMiddleButtonDown()) {
+                gc.setFill(Color.DARKGREEN);
+                gc.fillRect(0, 0, width*pixelSize, height*pixelSize);
+            } else if(event.isSecondaryButtonDown()) {
+                gc.setFill(previous);
+                gc.fillRect(x, y, pixelSize, pixelSize);
+            } else if ((x != xPrevious || y !=yPrevious)) {
+                editorCanvas.snapshot(null, writableImage);
+                gc.setFill(underColor);
+                gc.fillRect(xPrevious, yPrevious, pixelSize, pixelSize);
+                underColor = writableImage.getPixelReader().getColor(x, y);
+                gc.setFill(actual);
+                gc.fillRect(x, y, pixelSize, pixelSize);
+                xPrevious = x;
+                yPrevious = y;
+                if(event.isPrimaryButtonDown()) gc.fillRect(x,y,pixelSize,pixelSize);
+            }
+        });*/
     }
 
     public void refreshActualCanvas() {
@@ -120,7 +159,7 @@ public class MapEditor extends Application{
         roadButton = new Button("Road");
         roadButton.setMinSize(100, 30);
         roadButton.setOnMousePressed(event -> {
-            setPreviousColor(actual == previous ? previous : actual);
+            setPreviousColor(Color.DARKGRAY == previous ? previous : actual);
             setActualColor(Color.DARKGRAY);
             refreshActualCanvas();
         });
@@ -130,9 +169,10 @@ public class MapEditor extends Application{
         buildingButton = new Button("Building");
         buildingButton.setMinSize(100, 30);
         buildingButton.setOnMousePressed(event -> {
-            setPreviousColor(actual == previous ? previous : actual);
+            setPreviousColor(Color.DARKBLUE == previous ? previous : actual);
             setActualColor(Color.DARKBLUE);
             refreshActualCanvas();
+            new BuildingSet();
         });
     }
 
@@ -140,7 +180,7 @@ public class MapEditor extends Application{
         safeZoneButton = new Button("Safe Zone");
         safeZoneButton.setMinSize(100, 30);
         safeZoneButton.setOnMousePressed(event -> {
-            setPreviousColor(actual == previous ? previous : actual);
+            setPreviousColor(Color.SPRINGGREEN == previous ? previous : actual);
             setActualColor(Color.SPRINGGREEN);
             refreshActualCanvas();
         });
@@ -183,13 +223,13 @@ public class MapEditor extends Application{
 
     private void setGridPane() {
         mapGrid = new GridPane();
-        mapGrid.add(editorCanvas, 0, 0, 1, 6);
+        mapGrid.add(editorCanvas, 0, 0, 1, 7);
         mapGrid.add(roadButton, 1, 0);
         mapGrid.add(buildingButton, 1, 1);
         mapGrid.add(safeZoneButton, 1, 2);
         mapGrid.add(saveButton, 1, 3);
-        mapGrid.add(backButton, 1, 4);
-        mapGrid.add(actualColorCanvas, 1, 5);
+        mapGrid.add(actualColorCanvas, 1, 4);
+        mapGrid.add(backButton, 1, 6);
         mapGrid.setBackground(
                 new Background(
                         new BackgroundFill(
@@ -199,7 +239,8 @@ public class MapEditor extends Application{
                         )
                 )
         );
-        mapGrid.setPadding(new Insets(15, 15 ,15 ,15));
+        mapGrid.setPadding(new Insets(20, 20 ,20 ,20));
+        mapGrid.setVgap(10);
     }
 
     @Override
@@ -218,8 +259,8 @@ public class MapEditor extends Application{
 
         setGridPane();
 
-        primaryStage.setWidth(width*pixelSize + 115);
-        primaryStage.setHeight(height*pixelSize + 15);
+        primaryStage.setWidth(width*pixelSize + 160);
+        primaryStage.setHeight(height*pixelSize + 60);
         primaryStage.setScene(new Scene(mapGrid));
         primaryStage.show();
     }

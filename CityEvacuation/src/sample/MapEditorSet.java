@@ -64,8 +64,8 @@ public class MapEditorSet extends Application {
         sliders = new Slider[]{widthSlider, heightSlider, pixelSlider};
 
         for(Slider slider : sliders) {
-            slider.setMin(0);
-            slider.setMax(100);
+            slider.setMin(20);
+            slider.setMax(200);
             slider.setValue(20);
             slider.setShowTickLabels(true);
             slider.setShowTickMarks(true);
@@ -79,9 +79,10 @@ public class MapEditorSet extends Application {
                 pixelLabel.setText(pixelTextButton + (int) pixelSlider.getValue());
             });
         }
-        pixelSlider.setMax(15);
+        pixelSlider.setMin(1);
+        pixelSlider.setMax(20);
         pixelSlider.setValue(10);
-        pixelSlider.setBlockIncrement(2);
+        pixelSlider.setBlockIncrement(5);
     }
 
     public void setButtons() {
