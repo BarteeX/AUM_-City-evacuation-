@@ -22,9 +22,6 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * Created by Martic on 2017-04-09.
- */
 public class MapEditor extends Application{
 
     private int width;
@@ -66,7 +63,7 @@ public class MapEditor extends Application{
         this.primaryStage = primaryStage;
     }
 
-    public void setCanvas() {
+    private void setCanvas() {
         editorCanvas = new Canvas(width*pixelSize, height*pixelSize);
         gc = editorCanvas.getGraphicsContext2D();
         gc.setFill(Color.DARKGREEN);
@@ -139,7 +136,7 @@ public class MapEditor extends Application{
         });*/
     }
 
-    public void refreshActualCanvas() {
+    private void refreshActualCanvas() {
         gca.setFill(actual);
         gca.fillRect(0,0, actualColorCanvas.getWidth()/2, 50);
         gca.setFill(previous);
@@ -211,9 +208,7 @@ public class MapEditor extends Application{
 
     private void setBackButton() {
         backButton = new Button("Back");
-        backButton.setOnMouseClicked(event -> {
-            new MainWindow(primaryStage);
-        });
+        backButton.setOnMouseClicked(event -> new MainWindow(primaryStage));
         backButton.setMinSize(100, 30);
 
     }
@@ -268,12 +263,12 @@ public class MapEditor extends Application{
         this.pixelSize = pixelSize;
     }
 
-    public MapEditor(Stage primaryStage, int width, int height, int pixelSize) {
+    MapEditor(Stage primaryStage, int width, int height, int pixelSize) {
         setSize(width, height, pixelSize);
         start(primaryStage);
     }
 
-    public MapEditor(Stage primaryStage, int width, int height, int pixelSize, Image loadedImage) {
+    MapEditor(Stage primaryStage, int width, int height, int pixelSize, Image loadedImage) {
         this(primaryStage, width, height, pixelSize);
         gc.drawImage(loadedImage, 0, 0, width*pixelSize, height*pixelSize);
     }

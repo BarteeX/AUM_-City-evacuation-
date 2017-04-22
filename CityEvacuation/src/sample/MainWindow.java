@@ -25,7 +25,7 @@ public class MainWindow extends Application {
                     aboutButton, exitButton;
 
 
-    public void setButtonsSize(double width, double height) {
+    private void setButtonsSize(double width, double height) {
         this.width = width;
         this.height = height;
     }
@@ -55,9 +55,7 @@ public class MainWindow extends Application {
         this.mapButton.setAlignment(Pos.CENTER);
         this.mapButton.setMinWidth(this.width);
         this.mapButton.setMinHeight(this.height);
-        this.mapButton.setOnMouseClicked(event -> {
-            new MapEditorSet(mainStage);
-        });
+        this.mapButton.setOnMouseClicked(event -> new MapEditorSet(mainStage));
     }
 
     private void setAgentButton() {
@@ -86,9 +84,7 @@ public class MainWindow extends Application {
         this.exitButton.setAlignment(Pos.CENTER);
         this.exitButton.setMinWidth(this.width);
         this.exitButton.setMinHeight(this.height);
-        this.exitButton.setOnMouseClicked(event -> {
-            System.exit(0);
-        });
+        this.exitButton.setOnMouseClicked(event -> System.exit(0));
     }
 
     public Button getEvacuationButton() {
@@ -171,7 +167,7 @@ public class MainWindow extends Application {
         primaryStage.show();
     }
 
-   public MainWindow(Stage primaryStage) {
+   MainWindow(Stage primaryStage) {
         start(primaryStage);
    }
 }

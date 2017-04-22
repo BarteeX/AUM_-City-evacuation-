@@ -75,7 +75,7 @@ public class BuildingSet extends Application {
         primaryStage.show();
     }
 
-    public BuildingSet() {
+    BuildingSet() {
         start(new Stage());
     }
 }

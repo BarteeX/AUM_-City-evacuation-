@@ -81,7 +81,7 @@ public class MapEditorSet extends Application {
         pixelSlider.setBlockIncrement(5);
     }
 
-    public void setButtons() {
+    private void setButtons() {
         buildButton = new Button("Build");
         buildButton.setAlignment(Pos.CENTER);
         buildButton.setOnMouseClicked(event -> {
@@ -94,9 +94,7 @@ public class MapEditorSet extends Application {
 
         backButton = new Button("Back");
         backButton.setAlignment(Pos.CENTER_RIGHT);
-        backButton.setOnMouseClicked(event -> {
-            new MainWindow(primaryStage);
-        });
+        backButton.setOnMouseClicked(event -> new MainWindow(primaryStage));
 
         loadButton = new Button("Load");
         loadButton.setOnMousePressed(event -> {
@@ -154,7 +152,7 @@ public class MapEditorSet extends Application {
         primaryStage.show();
     }
 
-    public MapEditorSet(Stage primaryStage) {
+    MapEditorSet(Stage primaryStage) {
         start(primaryStage);
     }
 }
