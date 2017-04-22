@@ -1,24 +1,18 @@
 package sample;
 
-import com.sun.javafx.geom.Rectangle;
-import com.sun.scenario.effect.Glow;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import javafx.scene.effect.Effect;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-/**
- * Created by Bartek on 2017-04-17.
- */
-public class BuildingSet extends Application{
+
+public class BuildingSet extends Application {
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Building");
@@ -58,12 +52,14 @@ public class BuildingSet extends Application{
         amountSlider.setValue(10);
         amountSlider.setBlockIncrement(5);
 
+        Button buildButton = new Button("Build");
 
         GridPane gridPane = new GridPane();
         gridPane.setBackground(new Background(new BackgroundFill(Color.DARKBLUE, null, null)));
         gridPane.add(widthLabel, 0, 0);
         gridPane.add(heightLabel, 0, 1);
         gridPane.add(amountLabel, 0, 2);
+        gridPane.add(buildButton, 0, 3);
 
         gridPane.add(widthSlider, 1, 0);
         gridPane.add(heightSlider, 1, 1);
