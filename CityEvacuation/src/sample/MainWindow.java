@@ -167,7 +167,7 @@ public class MainWindow extends Application {
         primaryStage.show();
     }
 
-   MainWindow(Stage primaryStage) {
+    MainWindow(Stage primaryStage) {
         start(primaryStage);
    }
 }
