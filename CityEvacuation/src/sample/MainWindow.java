@@ -87,30 +87,6 @@ public class MainWindow extends Application {
         this.exitButton.setOnMouseClicked(event -> System.exit(0));
     }
 
-    public Button getEvacuationButton() {
-        return this.evacuationButton;
-    }
-
-    public Button getMapButton() {
-        return this.mapButton;
-    }
-
-    public Button getAgentButton() {
-        return this.agentButton;
-    }
-
-    public Button getSettingsButton() {
-        return this.settingsButton;
-    }
-
-    public Button getAboutButton() {
-        return this.aboutButton;
-    }
-
-    public Button getExitButton() {
-        return this.exitButton;
-    }
-
     private void setGridPane() {
         this.gridPane = new GridPane();
         this.gridPane.setHgap(15);

@@ -257,17 +257,14 @@ public class MapEditor extends Application{
                 numberOfLayers++;
                 actualLayerIndex = numberOfLayers - 1;
                 layerChoiceBox.getItems().add(actualLayerIndex, numberOfLayers + ".Layer");
-                editorCanvasList.add(new Canvas(height*pixelSize, width*pixelSize));
-                gcList.add(editorCanvasList.get(numberOfLayers - 1).getGraphicsContext2D());
-                mapGrid.add(editorCanvasList.get(actualLayerIndex), 0, 0, 1, 7);
                 setCanvas();
+                mapGrid.add(editorCanvasList.get(actualLayerIndex), 0, 0, 1, 7);
             } else {
                 actualLayerIndex = layerChoiceBox.getSelectionModel().getSelectedIndex();
                 editorCanvasList.get(actualLayerIndex).toFront();
             }
         });
     }
-
 
     private void setGridPane() {
         mapGrid = new GridPane();
