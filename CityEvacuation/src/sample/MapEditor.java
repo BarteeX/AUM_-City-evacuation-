@@ -14,6 +14,7 @@ import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -31,12 +32,12 @@ public class MapEditor extends Application{
     private int width;
     private int height;
     private int pixelSize;
-    private int xPrevious = 0, yPrevious = 0;
+    //private int xPrevious = 0, yPrevious = 0;
     private int numberOfLayers = 1;
     private int actualLayerIndex = 0;
 
     private Color actual, previous;
-    private Color underColor;
+    //private Color underColor;
 
     private List<Canvas> editorCanvasList = new ArrayList<>();
     private Canvas actualColorCanvas;
@@ -159,25 +160,25 @@ public class MapEditor extends Application{
     private void setSaveButton() {
         saveButton = new Button("Save");
         saveButton.setOnMousePressed(event -> {
-            FileChooser fC = new FileChooser();
-            FileChooser.ExtensionFilter extFilter =
-                    new FileChooser.ExtensionFilter("png files (*.png)", "*.png");
-            fC.getExtensionFilters().add(extFilter);
-            File file = fC.showSaveDialog(primaryStage);
-            WritableImage wI = new WritableImage(width*pixelSize, height*pixelSize);
+            DirectoryChooser dC = new DirectoryChooser();
+            File file = dC.showDialog(primaryStage);
+            for (Canvas editorCanvas : editorCanvasList) {
+                WritableImage wI = new WritableImage(width*pixelSize, height*pixelSize);
+                editorCanvas.snapshot(null, wI);
 
-            editorCanvasList.get(0).snapshot(null, wI);
-
-            if(file != null){
-                try {
-                    WritableImage writableImage = new WritableImage(width*pixelSize, height*pixelSize);
-                    editorCanvasList.get(0).snapshot(null, writableImage);
-                    RenderedImage renderedImage = SwingFXUtils.fromFXImage(writableImage, null);
-                    ImageIO.write(renderedImage, "png", file);
-                } catch (IOException ex) {
-                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                if(file != null){
+                    try {
+                        WritableImage writableImage = new WritableImage(width*pixelSize, height*pixelSize);
+                        editorCanvas.snapshot(null, writableImage);
+                        RenderedImage renderedImage = SwingFXUtils.fromFXImage(writableImage, null);
+                        ImageIO.write(renderedImage, "png", new File(file + "\\" + (editorCanvasList.indexOf(editorCanvas)+1) + ".png"));
+                    } catch (IOException ex) {
+                        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
             }
+
+
         });
         saveButton.setMinSize(100, 30);
     }
@@ -243,7 +244,7 @@ public class MapEditor extends Application{
             setActualColor(chooseColor);
             refreshActualCanvas();
         });
-
+        elementChoiceBox.setMinWidth(100d);
     }
 
     private void setLayersChoiceBox() {
@@ -257,23 +258,36 @@ public class MapEditor extends Application{
                 numberOfLayers++;
                 actualLayerIndex = numberOfLayers - 1;
                 layerChoiceBox.getItems().add(actualLayerIndex, numberOfLayers + ".Layer");
+                layerChoiceBox.getSelectionModel().select(actualLayerIndex);
                 setCanvas();
-                mapGrid.add(editorCanvasList.get(actualLayerIndex), 0, 0, 1, 7);
+                mapGrid.add(editorCanvasList.get(actualLayerIndex), 0, 1, 5, 5);
             } else {
                 actualLayerIndex = layerChoiceBox.getSelectionModel().getSelectedIndex();
                 editorCanvasList.get(actualLayerIndex).toFront();
             }
         });
+        layerChoiceBox.setOnMousePressed(event -> {
+            if(event.isSecondaryButtonDown() && numberOfLayers > 1) {
+                numberOfLayers--;
+                actualLayerIndex = numberOfLayers - 1;
+                editorCanvasList.remove(numberOfLayers);
+                gcList.remove(numberOfLayers);
+                layerChoiceBox.getItems().remove(numberOfLayers);
+                layerChoiceBox.getSelectionModel().select(actualLayerIndex);
+                editorCanvasList.get(actualLayerIndex).toFront();
+            }
+        });
+        layerChoiceBox.setMinWidth(100d);
     }
 
     private void setGridPane() {
         mapGrid = new GridPane();
-        mapGrid.add(editorCanvasList.get(actualLayerIndex), 0, 0, 1, 7);
+        mapGrid.add(editorCanvasList.get(actualLayerIndex), 0, 1, 5, 5);
+        mapGrid.add(layerChoiceBox, 0, 0);
         mapGrid.add(elementChoiceBox, 1, 0);
-        mapGrid.add(saveButton, 1, 1);
-        mapGrid.add(actualColorCanvas, 1, 2);
-        mapGrid.add(backButton, 1, 3);
-        mapGrid.add(layerChoiceBox, 1, 4);
+        mapGrid.add(saveButton, 2, 0);
+        mapGrid.add(backButton, 3, 0);
+        mapGrid.add(actualColorCanvas, 0, 7);
         mapGrid.setBackground(
                 new Background(
                         new BackgroundFill(
@@ -284,7 +298,8 @@ public class MapEditor extends Application{
                 )
         );
         mapGrid.setPadding(new Insets(20, 20 ,20 ,20));
-        mapGrid.setVgap(10);
+        mapGrid.setVgap(15);
+        mapGrid.setHgap(15);
     }
 
     @Override
@@ -302,7 +317,7 @@ public class MapEditor extends Application{
         setGridPane();
 
         primaryStage.setWidth(width*pixelSize + 160);
-        primaryStage.setHeight(height*pixelSize + 60);
+        primaryStage.setHeight(height*pixelSize + 200);
         primaryStage.setScene(new Scene(mapGrid));
         primaryStage.show();
     }
