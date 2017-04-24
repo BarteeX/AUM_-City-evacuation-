@@ -21,8 +21,11 @@ import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import java.awt.image.RenderedImage;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.DirectoryStream;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,12 +35,10 @@ public class MapEditor extends Application{
     private int width;
     private int height;
     private int pixelSize;
-    //private int xPrevious = 0, yPrevious = 0;
     private int numberOfLayers = 1;
     private int actualLayerIndex = 0;
 
     private Color actual, previous;
-    //private Color underColor;
 
     private List<Canvas> editorCanvasList = new ArrayList<>();
     private Canvas actualColorCanvas;
@@ -48,6 +49,7 @@ public class MapEditor extends Application{
     private Stage primaryStage;
 
     private Button saveButton;
+    private Button loadButton;
     private Button backButton;
 
     private ChoiceBox elementChoiceBox;
@@ -115,33 +117,6 @@ public class MapEditor extends Application{
                 gcList.get(actualLayerIndex).fillRect(x, y, pixelSize, pixelSize);
             }
         });
-
-        // poruszanie kursorem
-        /*editorCanvas.setOnMouseMoved(event -> {
-            int x = (int) (event.getX()/pixelSize)*pixelSize;
-            int y = (int) (event.getY()/pixelSize)*pixelSize;
-
-            if(event.isPrimaryButtonDown()) {
-                gc.setFill(actual);
-                gc.fillRect((event.getX()/pixelSize)*pixelSize, (event.getY()/pixelSize)*pixelSize, pixelSize, pixelSize);
-            } else if(event.isMiddleButtonDown()) {
-                gc.setFill(Color.DARKGREEN);
-                gc.fillRect(0, 0, width*pixelSize, height*pixelSize);
-            } else if(event.isSecondaryButtonDown()) {
-                gc.setFill(previous);
-                gc.fillRect(x, y, pixelSize, pixelSize);
-            } else if ((x != xPrevious || y !=yPrevious)) {
-                editorCanvas.snapshot(null, writableImage);
-                gc.setFill(underColor);
-                gc.fillRect(xPrevious, yPrevious, pixelSize, pixelSize);
-                underColor = writableImage.getPixelReader().getColor(x, y);
-                gc.setFill(actual);
-                gc.fillRect(x, y, pixelSize, pixelSize);
-                xPrevious = x;
-                yPrevious = y;
-                if(event.isPrimaryButtonDown()) gc.fillRect(x,y,pixelSize,pixelSize);
-            }
-        });*/
     }
 
     private void refreshActualCanvas() {
@@ -181,6 +156,34 @@ public class MapEditor extends Application{
 
         });
         saveButton.setMinSize(100, 30);
+    }
+
+    private void setLoadButton() {
+        loadButton = new Button("Load");
+        loadButton.setOnMousePressed(event -> {
+            DirectoryChooser dC = new DirectoryChooser();
+            File file = dC.showDialog(primaryStage);
+            File[] imageFileTab = file.listFiles();
+            editorCanvasList.clear();
+            gcList.clear();
+            layerChoiceBox.getItems().clear();
+            int iterator = 0;
+            this.numberOfLayers = imageFileTab.length;
+            for (File image : imageFileTab) {
+                if(image.getPath().endsWith(".png")){
+                    Image tempImage = new Image(image.getPath());
+                    this.width = (int) tempImage.getWidth()/pixelSize;
+                    this.height = (int) tempImage.getHeight()/pixelSize;
+                    this.actualLayerIndex = iterator;
+                    layerChoiceBox.getItems().add((actualLayerIndex+1) + ". Layer");
+                    setCanvas();
+                    gcList.get(actualLayerIndex).drawImage(tempImage, width*pixelSize, height*pixelSize);
+                    iterator++;
+                }
+
+            }
+        });
+
     }
 
     private void setBackButton() {
@@ -288,6 +291,7 @@ public class MapEditor extends Application{
         mapGrid.add(saveButton, 2, 0);
         mapGrid.add(backButton, 3, 0);
         mapGrid.add(actualColorCanvas, 0, 7);
+        mapGrid.add(loadButton, 1, 7);
         mapGrid.setBackground(
                 new Background(
                         new BackgroundFill(
@@ -309,6 +313,7 @@ public class MapEditor extends Application{
         setCanvas();
 
         setSaveButton();
+        setLoadButton();
         setBackButton();
 
         setActualColorCanvas();

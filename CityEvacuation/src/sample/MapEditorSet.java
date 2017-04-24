@@ -6,13 +6,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
-import java.io.File;
 
 public class MapEditorSet extends Application {
     private Stage primaryStage;
@@ -32,7 +28,6 @@ public class MapEditorSet extends Application {
 
     private Button buildButton;
     private Button backButton;
-    private Button loadButton;
 
     private GridPane grid;
 
@@ -95,26 +90,6 @@ public class MapEditorSet extends Application {
         backButton = new Button("Back");
         backButton.setAlignment(Pos.CENTER_RIGHT);
         backButton.setOnMouseClicked(event -> new MainWindow(primaryStage));
-
-        loadButton = new Button("Load");
-        loadButton.setOnMousePressed(event -> {
-            FileChooser fC = new FileChooser();
-            FileChooser.ExtensionFilter extFilter =
-                    new FileChooser.ExtensionFilter("png files (*.png)", "*.png");
-            fC.getExtensionFilters().add(extFilter);
-            File file = fC.showOpenDialog(primaryStage);
-            if(file.getName().endsWith(".png")) {
-                Image image = new Image(file.toURI().toString());
-                new MapEditor(
-                        primaryStage,
-                        (int) (image.getWidth()/pixelSlider.getValue()),
-                        (int) (image.getHeight()/pixelSlider.getValue()),
-                        (int) pixelSlider.getValue(),
-                        image
-                );
-            }
-        });
-        loadButton.setMaxSize(100, 70);
     }
 
     private void setGridPane() {
@@ -127,7 +102,6 @@ public class MapEditorSet extends Application {
         grid.add(pixelSlider, 1, 2);
         grid.add(buildButton, 0, 3);
         grid.add(backButton, 1, 3);
-        grid.add(loadButton, 2, 3);
         grid.setAlignment(Pos.CENTER);
         grid.setBackground(
                 new Background(
