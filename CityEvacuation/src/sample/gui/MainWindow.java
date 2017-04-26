@@ -48,6 +48,7 @@ public class MainWindow extends Application {
         this.evacuationButton.setAlignment(Pos.CENTER);
         this.evacuationButton.setMinWidth(this.width);
         this.evacuationButton.setMinHeight(this.height);
+        this.evacuationButton.setOnMousePressed(event -> new Evacuation(mainStage));
     }
 
     private void setMapButton() {

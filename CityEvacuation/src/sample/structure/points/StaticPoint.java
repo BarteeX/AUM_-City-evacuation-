@@ -2,11 +2,9 @@ package sample.structure.points;
 
 import javafx.scene.paint.Color;
 
+import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by BarteeX on 2017-04-25.
- */
 public abstract class StaticPoint {
     private int x;
     private int y;
@@ -43,12 +41,14 @@ public abstract class StaticPoint {
     }
 
     public abstract void tileColor();
-    public abstract void interaction();
+    public abstract void setActionList();
+    public abstract List<ActionType> getPossibleActions();
 
     public StaticPoint(int x, int y) {
         this.setX(x);
         this.setY(y);
         this.tileColor();
-        this.interaction();
+        this.setActionList();
+        this.actionTypeList = new ArrayList<>();
     }
 }

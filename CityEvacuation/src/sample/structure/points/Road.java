@@ -1,23 +1,23 @@
 package sample.structure.points;
 
-import javafx.scene.paint.Color;
+import java.util.List;
 
-import java.util.ArrayList;
-
-/**
- * Created by BarteeX on 2017-04-25.
- */
 public class Road extends StaticPoint {
 
     @Override
     public void tileColor() {
-        super.tileColor = Color.GRAY;
+        super.tileColor = TileColors.ROAD_COLOR;
     }
 
     @Override
-    public void interaction() {
-        super.actionTypeList = new ArrayList<>();
+    public void setActionList() {
+        super.actionTypeList.add(ActionType.NONE);
         super.actionTypeList.add(ActionType.WALK_IN);
+    }
+
+    @Override
+    public List<ActionType> getPossibleActions() {
+        return super.actionTypeList;
     }
 
     public Road(int x, int y) {

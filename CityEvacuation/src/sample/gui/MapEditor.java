@@ -167,7 +167,7 @@ public class MapEditor extends Application{
             this.numberOfLayers = imageFileTab.length;
             for (File image : imageFileTab) {
                 if(image.getPath().endsWith(".png")){
-                    Image tempImage = new Image(image.getPath());
+                    Image tempImage = new Image(image.toURI().toString());
                     this.width = (int) tempImage.getWidth()/pixelSize;
                     this.height = (int) tempImage.getHeight()/pixelSize;
                     this.actualLayerIndex = iterator;

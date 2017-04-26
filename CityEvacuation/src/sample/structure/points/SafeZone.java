@@ -2,16 +2,16 @@ package sample.structure.points;
 
 import java.util.List;
 
-public class Wall extends StaticPoint {
-
+public class SafeZone extends StaticPoint {
     @Override
     public void tileColor() {
-        super.tileColor = TileColors.WALL_COLOR;
+        super.tileColor = TileColors.SAFEZONE_COLOR;
     }
 
     @Override
     public void setActionList() {
-        actionTypeList.add(ActionType.NONE);
+        super.actionTypeList.add(ActionType.NONE);
+        super.actionTypeList.add(ActionType.WALK_IN);
     }
 
     @Override
@@ -19,7 +19,7 @@ public class Wall extends StaticPoint {
         return super.actionTypeList;
     }
 
-    public Wall(int x, int y) {
+    public SafeZone(int x, int y) {
         super(x, y);
     }
 }
