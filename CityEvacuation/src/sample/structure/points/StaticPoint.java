@@ -48,7 +48,7 @@ public abstract class StaticPoint {
         this.setX(x);
         this.setY(y);
         this.tileColor();
-        this.setActionList();
         this.actionTypeList = new ArrayList<>();
+        this.setActionList();
     }
 }

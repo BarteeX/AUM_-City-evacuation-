@@ -11,5 +11,9 @@ public class TileColors {
     public static Color FURNITURE_COLOR = Color.LIGHTGREEN;
     public static Color UPSTAIRS_COLOR = Color.YELLOW;
     public static Color DOWNSTAIRS_COLOR = Color.PURPLE;
-    public static Color SAFEZONE_COLOR = Color.LIGHTPINK;
+    public static Color SAFE_ZONE_COLOR = Color.LIGHTPINK;
+    public static Color LAWN_COLOR = Color.DARKGREEN;
+    public static Color AGENT_COLOR = Color.DARKCYAN;
+
+    public static int TILE_SIZE = 10;
 }

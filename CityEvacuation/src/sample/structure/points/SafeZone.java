@@ -5,7 +5,7 @@ import java.util.List;
 public class SafeZone extends StaticPoint {
     @Override
     public void tileColor() {
-        super.tileColor = TileColors.SAFEZONE_COLOR;
+        super.tileColor = TileColors.SAFE_ZONE_COLOR;
     }
 
     @Override

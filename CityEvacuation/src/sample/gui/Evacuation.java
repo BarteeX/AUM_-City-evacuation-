@@ -1,138 +1,192 @@
 package sample.gui;
 
 import javafx.application.Application;
-import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
-import javafx.scene.image.WritableImage;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
+import sample.structure.points.Agent;
 import sample.structure.map.CityMap;
+import sample.structure.points.*;
+import sample.structure.points.Window;
 
+import java.awt.*;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import static sample.structure.points.TileColors.*;
+
 public class Evacuation extends Application {
-    Button loadButton;
     GridPane gridPane;
-    Stage primaryStage;
     CityMap map;
-    int width, height, numberOfLayers;
+    Button backButton;
+    Button agentButton;
+    Button iterationButton;
+    int width, height, numberOfLayers, actualNumLayer;
     List<Canvas> layersCanvas;
+    Canvas agentsCanvas;
+    List<Agent> agentList;
     ChoiceBox layerListChoiceBox;
 
-    private void setPrimaryStage() {
+
+    private void setPrimaryStage(Stage primaryStage) {
         primaryStage.close();
         primaryStage.setTitle("Evacuation");
         primaryStage.show();
-        primaryStage.setWidth(400);
-        primaryStage.setHeight(300);
+        primaryStage.setWidth(this.width*TILE_SIZE + 120);
+        primaryStage.setHeight(this.height*TILE_SIZE);
         primaryStage.setScene(new Scene(gridPane));
-
     }
 
-    private void setButtons() {
-        loadButton = new Button("Load Map");
-
-        loadButton.setOnMousePressed(event -> {
-            DirectoryChooser dC = new DirectoryChooser();
-            dC.setInitialDirectory(new File("C:\\Users\\" + System.getProperty("user.name") + "\\Desktop"));
-            File directory = dC.showDialog(primaryStage);
-            List<File> fileTab = new ArrayList<>();
-            for (File file : directory.listFiles()) {
-                fileTab.add(file);
-            }
-            layersCanvas = new ArrayList<>();
-            layerListChoiceBox = new ChoiceBox();
-            numberOfLayers = 0;
-            for (File file : fileTab) {
-                if(file.getName().endsWith(".png")) {
-                    Image layerImage = new Image(file.toURI().toString());
-                    int imageWidth = (int) layerImage.getWidth();
-                    int imageHeight = (int) layerImage.getHeight();
-                    Canvas layerCanvas = new Canvas(imageWidth, imageHeight);
-                    layerCanvas.getGraphicsContext2D().drawImage(layerImage, 0, 0,imageWidth, imageHeight);
-                    layersCanvas.add(layerCanvas);
-                    numberOfLayers++;
-                    int index = fileTab.indexOf(file);
-                    if(index == 0){
-                        resize(imageWidth, imageHeight);
-                        width = imageWidth;
-                        height = imageHeight;
-                    }
-                    gridPane.add(layersCanvas.get(index), 0, 1, 2, 1);
-                    layerListChoiceBox.getItems().add((index+1) + ".layer");
+    private void drawCanvas() {
+        for(int layer = 0; layer < this.numberOfLayers; ++layer) {
+            Canvas toAddCanvas = new Canvas(this.width*TILE_SIZE, this.height*TILE_SIZE);
+            GraphicsContext gC = toAddCanvas.getGraphicsContext2D();
+            for(int y = 0; y < this.height; ++y) {
+                for(int x = 0; x < this.width; ++x) {
+                    Color tileFromMap = map.getTileColor(x, y, layer);
+                    gC.setFill(tileFromMap);
+                    gC.fillRect(x*TILE_SIZE, y*TILE_SIZE, TILE_SIZE, TILE_SIZE);
                 }
             }
-            layersCanvas.get(0).toFront();
-            gridPane.add(layerListChoiceBox, 1, 0);
-            setLayerListChoiceBox();
-        });
+            layersCanvas.add(toAddCanvas);
+        }
+        layersCanvas.get(0).toFront();
+        agentsCanvas = new Canvas(width*TILE_SIZE, height*TILE_SIZE);
     }
 
-    private void resize(int x, int y) {
-        primaryStage.setWidth(x + 80);
-        primaryStage.setHeight(y + 120);
+    private void initVar() {
+        gridPane = new GridPane();
+        layersCanvas = new ArrayList<>();
+        layerListChoiceBox = new ChoiceBox();
+        agentList = new ArrayList<>();
     }
 
     private void setLayerListChoiceBox() {
-        layerListChoiceBox.getSelectionModel().selectFirst();
-        layerListChoiceBox.setOnAction(event -> {
-            int position = layerListChoiceBox.getSelectionModel().getSelectedIndex();
-            layersCanvas.get(position).toFront();
-        });
-    }
-
-    private void buildCityMap() {
-        map = new CityMap(width, height, numberOfLayers);
-        for(int i = 0 ; i < layersCanvas.size(); ++i) {
-            WritableImage wI = new WritableImage(width,height);
-            layersCanvas.get(i).snapshot(null, wI);
-            PixelReader pR = wI.getPixelReader();
-            for(int y = 0 ; y < height; ++y) {
-                for(int x = 0; x < width; ++x) {
-                    Color tileColor = pR.getColor(x, y);
-                    switch(tileColor) {
-
-                    }
-                }
-            }
-
+        for(int layer = 1; layer <= this.numberOfLayers; ++layer) {
+            layerListChoiceBox.getItems().add(layer + ". layer");
         }
+        layerListChoiceBox.setOnAction(event -> {
+            actualNumLayer = layerListChoiceBox.getSelectionModel().getSelectedIndex();
+            layersCanvas.get(actualNumLayer).toFront();
+        });
+        layerListChoiceBox.getSelectionModel().selectFirst();
+        layersCanvas.get(0).toFront();
+        layerListChoiceBox.setMinWidth(100);
+
     }
 
     private void setGridPane() {
-        gridPane = new GridPane();
-        gridPane.add(loadButton, 0, 0);
-        gridPane.setBackground(
-                new Background(
-                        new BackgroundFill(
-                                Color.LIGHTSALMON,
-                                null,
-                                null
-                        )
-                )
-        );
+        for (Canvas layer : layersCanvas) {
+            gridPane.add(layer, 0, 0, 6, 6);
+        }
+        gridPane.add(agentsCanvas, 0, 0, 6, 6);
+        gridPane.add(layerListChoiceBox, 6, 0 , 1, 1);
+        gridPane.add(agentButton, 6, 1, 1, 1);
+        gridPane.add(iterationButton, 6, 2, 1, 1);
+        gridPane.add(backButton, 6, 5, 1, 1);
+    }
+
+    private void setBackButton(Stage primaryStage) {
+        backButton = new Button("Back");
+        backButton.setOnAction(event -> {
+            new MainWindow(primaryStage);
+        });
+    }
+
+    private void setAgentButton() {
+        agentButton = new Button("Add Agent");
+        agentButton.setOnAction(event -> {
+            agentList.add(new Agent(0, 0));
+        });
+    }
+
+    private void setIterationButton() {
+        iterationButton = new Button("Iterate");
+        iterationButton.setOnAction(event -> {
+            iteration();
+        });
+    }
+
+    private void iteration() {
+        agentsCanvas.getGraphicsContext2D().clearRect(0,0, agentsCanvas.getHeight(), agentsCanvas.getWidth());
+        for(Agent agent : agentList) {
+            Point toGo = agent.dumbMove();
+            StaticPoint toGoPoint = map.get(toGo.x, toGo.y, actualNumLayer);
+            if(agent.tryToMove(toGoPoint)) {
+                int x = agent.getActualPosition().x;
+                int y = agent.getActualPosition().y;
+                GraphicsContext gC = agentsCanvas.getGraphicsContext2D();
+                gC.setFill(AGENT_COLOR);
+                gC.fillRect(x*TILE_SIZE, y*TILE_SIZE, TILE_SIZE, TILE_SIZE);
+            }
+        }
+        agentsCanvas.toFront();
     }
 
     @Override
     public void start(Stage primaryStage) {
-        this.primaryStage = primaryStage;
-        setButtons();
+        initVar();
+        drawCanvas();
+        setLayerListChoiceBox();
+        setBackButton(primaryStage);
+        setAgentButton();
+        setIterationButton();
         setGridPane();
-        setPrimaryStage();
+        setPrimaryStage(primaryStage);
     }
 
-    public Evacuation(Stage primaryStage) {
+    private StaticPoint checker(int x, int y, Color tileColor) {
+        if(tileColor.equals(WALL_COLOR)) return new Wall(x, y);
+        else if(tileColor.equals(ROAD_COLOR)) return new Road(x, y);
+        else if(tileColor.equals(FLOOR_COLOR)) return new Floor(x, y);
+        else if(tileColor.equals(WINDOW_COLOR)) return new Window(x, y);
+        else if(tileColor.equals(DOOR_COLOR)) return new Door(x, y);
+        else if(tileColor.equals(FURNITURE_COLOR)) return new Furniture(x, y);
+        else if(tileColor.equals(UPSTAIRS_COLOR)) return new Upstairs(x, y);
+        else if(tileColor.equals(DOWNSTAIRS_COLOR)) return new Downstairs(x, y);
+        else if(tileColor.equals(SAFE_ZONE_COLOR)) return new SafeZone(x, y);
+        else return new Lawn(x, y);
+    }
+
+    private void addAllPointToMap(Image layerImage, int layer) {
+        PixelReader pR = layerImage.getPixelReader();
+        for(int y = 0; y < this.height; ++y) {
+            for(int x = 0; x < this.width; ++x) {
+                Color tileColor = pR.getColor(x, y);
+                StaticPoint toAdd = checker(x, y, tileColor);
+                map.add(x, y, layer, toAdd);
+            }
+        }
+    }
+
+    private void initMap(Image layerImage) {
+        this.width = (int) layerImage.getWidth();
+        this.height = (int) layerImage.getHeight();
+        map = new CityMap(this.width, this.height, this.numberOfLayers);
+    }
+
+    private void setupMap(File directory) {
+        File[] layersFile = directory.listFiles();
+        this.numberOfLayers = layersFile.length;
+        for(int layer = 0; layer < this.numberOfLayers; ++layer) {
+            Image layerImage = new Image(layersFile[layer].toURI().toString());
+            if(layer == 0) {
+                initMap(layerImage);
+            }
+            addAllPointToMap(layerImage, layer);
+        }
+    }
+
+    public Evacuation(Stage primaryStage, File directory) {
+        setupMap(directory);
         start(primaryStage);
     }
 }

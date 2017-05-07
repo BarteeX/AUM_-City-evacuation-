@@ -9,7 +9,10 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
+
+import java.io.File;
 
 public class MainWindow extends Application {
 
@@ -48,7 +51,14 @@ public class MainWindow extends Application {
         this.evacuationButton.setAlignment(Pos.CENTER);
         this.evacuationButton.setMinWidth(this.width);
         this.evacuationButton.setMinHeight(this.height);
-        this.evacuationButton.setOnMousePressed(event -> new Evacuation(mainStage));
+        this.evacuationButton.setOnMousePressed(event ->{
+            DirectoryChooser dC = new DirectoryChooser();
+            dC.setInitialDirectory(new File("C:\\Users\\" + System.getProperty("user.name") + "\\Desktop"));
+            File directory = dC.showDialog(mainStage);
+            if(directory.exists()) {
+                new Evacuation(mainStage, directory);
+            }
+        });
     }
 
     private void setMapButton() {
