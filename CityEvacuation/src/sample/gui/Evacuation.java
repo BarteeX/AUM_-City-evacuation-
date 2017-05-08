@@ -5,6 +5,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
@@ -21,13 +22,15 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.Thread.sleep;
 import static sample.structure.points.TileColors.*;
 
 public class Evacuation extends Application {
     GridPane gridPane;
     CityMap map;
     Button backButton;
-    Button agentButton;
+    CheckBox agentCheckbox;
+    boolean addingAgents;
     Button iterationButton;
     int width, height, numberOfLayers, actualNumLayer;
     List<Canvas> layersCanvas;
@@ -35,13 +38,20 @@ public class Evacuation extends Application {
     List<Agent> agentList;
     ChoiceBox layerListChoiceBox;
 
+    private void initVar() {
+        gridPane = new GridPane();
+        layersCanvas = new ArrayList<>();
+        layerListChoiceBox = new ChoiceBox();
+        agentList = new ArrayList<>();
+        addingAgents= false;
+    }
 
     private void setPrimaryStage(Stage primaryStage) {
         primaryStage.close();
         primaryStage.setTitle("Evacuation");
         primaryStage.show();
         primaryStage.setWidth(this.width*TILE_SIZE + 120);
-        primaryStage.setHeight(this.height*TILE_SIZE);
+        primaryStage.setHeight(this.height*TILE_SIZE + 60);
         primaryStage.setScene(new Scene(gridPane));
     }
 
@@ -58,29 +68,20 @@ public class Evacuation extends Application {
             }
             layersCanvas.add(toAddCanvas);
         }
-        layersCanvas.get(0).toFront();
         agentsCanvas = new Canvas(width*TILE_SIZE, height*TILE_SIZE);
-    }
-
-    private void initVar() {
-        gridPane = new GridPane();
-        layersCanvas = new ArrayList<>();
-        layerListChoiceBox = new ChoiceBox();
-        agentList = new ArrayList<>();
     }
 
     private void setLayerListChoiceBox() {
         for(int layer = 1; layer <= this.numberOfLayers; ++layer) {
             layerListChoiceBox.getItems().add(layer + ". layer");
         }
+        layerListChoiceBox.getSelectionModel().selectFirst();
+        layerListChoiceBox.setMinWidth(100);
+        layersCanvas.get(0).toFront();
         layerListChoiceBox.setOnAction(event -> {
             actualNumLayer = layerListChoiceBox.getSelectionModel().getSelectedIndex();
             layersCanvas.get(actualNumLayer).toFront();
         });
-        layerListChoiceBox.getSelectionModel().selectFirst();
-        layersCanvas.get(0).toFront();
-        layerListChoiceBox.setMinWidth(100);
-
     }
 
     private void setGridPane() {
@@ -89,7 +90,7 @@ public class Evacuation extends Application {
         }
         gridPane.add(agentsCanvas, 0, 0, 6, 6);
         gridPane.add(layerListChoiceBox, 6, 0 , 1, 1);
-        gridPane.add(agentButton, 6, 1, 1, 1);
+        gridPane.add(agentCheckbox, 6, 1, 1, 1);
         gridPane.add(iterationButton, 6, 2, 1, 1);
         gridPane.add(backButton, 6, 5, 1, 1);
     }
@@ -101,30 +102,38 @@ public class Evacuation extends Application {
         });
     }
 
-    private void setAgentButton() {
-        agentButton = new Button("Add Agent");
-        agentButton.setOnAction(event -> {
-            agentList.add(new Agent(0, 0));
+    private void setAgentCheckBox() {
+        agentCheckbox = new CheckBox("Add Agent");
+        agentCheckbox.setSelected(addingAgents);
+        agentCheckbox.setOnAction(event -> {
+            addingAgents = agentCheckbox.isSelected();
+        });
+        agentsCanvas.setOnMousePressed(event -> {
+            if(addingAgents) {
+                agentList.add(new Agent((int) event.getX()/TILE_SIZE, (int) event.getY()/TILE_SIZE));
+            }
         });
     }
 
     private void setIterationButton() {
         iterationButton = new Button("Iterate");
         iterationButton.setOnAction(event -> {
-            iteration();
+            for(int i = 0; i < 10; ++i) {
+                iteration();
+            }
         });
     }
 
     private void iteration() {
-        agentsCanvas.getGraphicsContext2D().clearRect(0,0, agentsCanvas.getHeight(), agentsCanvas.getWidth());
+        agentsCanvas.getGraphicsContext2D().clearRect(0,0,agentsCanvas.getWidth(), agentsCanvas.getHeight());
         for(Agent agent : agentList) {
-            Point toGo = agent.dumbMove();
+            Point toGo = agent.dumbMove(new Point(5, 5));
             StaticPoint toGoPoint = map.get(toGo.x, toGo.y, actualNumLayer);
             if(agent.tryToMove(toGoPoint)) {
-                int x = agent.getActualPosition().x;
-                int y = agent.getActualPosition().y;
                 GraphicsContext gC = agentsCanvas.getGraphicsContext2D();
                 gC.setFill(AGENT_COLOR);
+                int x = agent.getActualPosition().x;
+                int y = agent.getActualPosition().y;
                 gC.fillRect(x*TILE_SIZE, y*TILE_SIZE, TILE_SIZE, TILE_SIZE);
             }
         }
@@ -137,9 +146,12 @@ public class Evacuation extends Application {
         drawCanvas();
         setLayerListChoiceBox();
         setBackButton(primaryStage);
-        setAgentButton();
+        setAgentCheckBox();
         setIterationButton();
         setGridPane();
+        int first = 0;
+        layersCanvas.get(first).toFront();
+        agentsCanvas.toFront();
         setPrimaryStage(primaryStage);
     }
 
