@@ -1,14 +1,14 @@
-package sample.structure.points;
+package sample.structure.points.permeable;
+
+import sample.structure.logic.ActionType;
+import sample.structure.logic.StaticPoint;
 
 import java.util.List;
 
-import static sample.structure.points.ActionType.NONE;
-import static sample.structure.points.ActionType.WALK_IN;
-import static sample.structure.points.TileColors.LAWN_COLOR;
+import static sample.structure.logic.ActionType.NONE;
+import static sample.structure.logic.ActionType.WALK_IN;
+import static sample.structure.logic.TileColors.LAWN_COLOR;
 
-/**
- * Created by BarteeX on 2017-04-26.
- */
 public class Lawn extends StaticPoint {
     @Override
     public void tileColor() {

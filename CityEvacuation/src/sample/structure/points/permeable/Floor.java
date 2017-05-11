@@ -1,8 +1,12 @@
-package sample.structure.points;
+package sample.structure.points.permeable;
+
+import sample.structure.logic.ActionType;
+import sample.structure.logic.StaticPoint;
+import sample.structure.logic.TileColors;
 
 import java.util.List;
 
-public class Floor extends StaticPoint{
+public class Floor extends StaticPoint {
 
     @Override
     public void tileColor() {

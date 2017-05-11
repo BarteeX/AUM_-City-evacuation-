@@ -1,4 +1,4 @@
-package sample.structure.points;
+package sample.structure.logic;
 
 public enum ActionType {
     NONE,

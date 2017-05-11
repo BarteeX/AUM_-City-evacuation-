@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static sample.structure.points.TileColors.*;
+import static sample.structure.logic.TileColors.*;
 
 public class MapEditor extends Application{
 
@@ -180,20 +180,22 @@ public class MapEditor extends Application{
             gcList.clear();
             layerChoiceBox.getItems().clear();
             int iterator = 0;
-            this.numberOfLayers = imageFileTab.length;
-            for (File image : imageFileTab) {
-                if(image.getPath().endsWith(".png")){
-                    Image tempImage = new Image(image.toURI().toString());
-                    this.width = (int) tempImage.getWidth();
-                    this.height = (int) tempImage.getHeight();
-                    this.actualLayerIndex = iterator;
-                    layerChoiceBox.getItems().add((actualLayerIndex+1) + ". Layer");
-                    setCanvas();
-                    gcList.get(actualLayerIndex).drawImage(tempImage, width*pixelSize, height*pixelSize);
-                    iterator++;
+            if(imageFileTab.length != 0) {
+                this.numberOfLayers = imageFileTab.length;
+                for (File image : imageFileTab) {
+                    if(image.getPath().endsWith(".png")){
+                        Image tempImage = new Image(image.toURI().toString());
+                        this.width = (int) tempImage.getWidth();
+                        this.height = (int) tempImage.getHeight();
+                        this.actualLayerIndex = iterator;
+                        layerChoiceBox.getItems().add((actualLayerIndex+1) + ". Layer");
+                        setCanvas();
+                        gcList.get(actualLayerIndex).drawImage(tempImage, width*pixelSize, height*pixelSize);
+                        iterator++;
+                    }
                 }
             }
-            layerChoiceBox.getItems().add("Add new layer...");
+                        layerChoiceBox.getItems().add("Add new layer...");
         });
 
     }

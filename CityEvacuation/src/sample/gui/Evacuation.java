@@ -12,31 +12,34 @@ import javafx.scene.image.PixelReader;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import sample.structure.points.Agent;
+import sample.structure.logic.Agent;
+import sample.structure.logic.StaticPoint;
 import sample.structure.map.CityMap;
-import sample.structure.points.*;
-import sample.structure.points.Window;
+import sample.structure.points.impenetrable.Furniture;
+import sample.structure.points.impenetrable.Wall;
+import sample.structure.points.permeable.*;
+import sample.structure.points.permeable.Window;
 
 import java.awt.*;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.lang.Thread.sleep;
-import static sample.structure.points.TileColors.*;
+import static sample.structure.logic.TileColors.*;
 
 public class Evacuation extends Application {
-    GridPane gridPane;
-    CityMap map;
-    Button backButton;
-    CheckBox agentCheckbox;
-    boolean addingAgents;
-    Button iterationButton;
-    int width, height, numberOfLayers, actualNumLayer;
-    List<Canvas> layersCanvas;
-    Canvas agentsCanvas;
-    List<Agent> agentList;
-    ChoiceBox layerListChoiceBox;
+    private GridPane gridPane;
+    private Button backButton;
+    private Button iterationButton;
+    private List<Canvas> layersCanvas;
+    private Canvas agentsCanvas;
+    private CheckBox agentCheckbox;
+    private ChoiceBox layerListChoiceBox;
+    private CityMap map;
+
+    private int width, height, numberOfLayers, actualNumLayer;
+    private boolean addingAgents;
+    private List<Agent> agentList;
 
     private void initVar() {
         gridPane = new GridPane();
@@ -97,17 +100,13 @@ public class Evacuation extends Application {
 
     private void setBackButton(Stage primaryStage) {
         backButton = new Button("Back");
-        backButton.setOnAction(event -> {
-            new MainWindow(primaryStage);
-        });
+        backButton.setOnAction(event -> new MainWindow(primaryStage));
     }
 
     private void setAgentCheckBox() {
         agentCheckbox = new CheckBox("Add Agent");
         agentCheckbox.setSelected(addingAgents);
-        agentCheckbox.setOnAction(event -> {
-            addingAgents = agentCheckbox.isSelected();
-        });
+        agentCheckbox.setOnAction(event -> addingAgents = agentCheckbox.isSelected());
         agentsCanvas.setOnMousePressed(event -> {
             if(addingAgents) {
                 agentList.add(new Agent((int) event.getX()/TILE_SIZE, (int) event.getY()/TILE_SIZE));
@@ -187,13 +186,15 @@ public class Evacuation extends Application {
 
     private void setupMap(File directory) {
         File[] layersFile = directory.listFiles();
-        this.numberOfLayers = layersFile.length;
-        for(int layer = 0; layer < this.numberOfLayers; ++layer) {
-            Image layerImage = new Image(layersFile[layer].toURI().toString());
-            if(layer == 0) {
-                initMap(layerImage);
+        if(layersFile != null) {
+            this.numberOfLayers = layersFile.length;
+            for(int layer = 0; layer < this.numberOfLayers; ++layer) {
+                Image layerImage = new Image(layersFile[layer].toURI().toString());
+                if(layer == 0) {
+                    initMap(layerImage);
+                }
+                addAllPointToMap(layerImage, layer);
             }
-            addAllPointToMap(layerImage, layer);
         }
     }
 

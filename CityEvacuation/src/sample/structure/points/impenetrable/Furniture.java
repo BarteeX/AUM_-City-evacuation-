@@ -1,4 +1,8 @@
-package sample.structure.points;
+package sample.structure.points.impenetrable;
+
+import sample.structure.logic.ActionType;
+import sample.structure.logic.StaticPoint;
+import sample.structure.logic.TileColors;
 
 import java.util.List;
 

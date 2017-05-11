@@ -1,11 +1,15 @@
-package sample.structure.points;
+package sample.structure.points.permeable;
+
+import sample.structure.logic.ActionType;
+import sample.structure.logic.StaticPoint;
+import sample.structure.logic.TileColors;
 
 import java.util.List;
 
 public class Door extends StaticPoint {
     private boolean isOpen;
 
-    public boolean isOpen() {
+    private boolean isOpen() {
         return isOpen;
     }
 

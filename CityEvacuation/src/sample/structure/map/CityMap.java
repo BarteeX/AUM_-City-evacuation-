@@ -1,9 +1,11 @@
 package sample.structure.map;
 
 import javafx.scene.paint.Color;
-import sample.structure.points.StaticPoint;
+import sample.structure.logic.StaticPoint;
 
-public class CityMap {
+import java.io.Serializable;
+
+public class CityMap implements Serializable {
     private StaticPoint[][][] cityMap;
 
     public void add(int x, int y, int layers, StaticPoint point) {
@@ -42,13 +44,15 @@ public class CityMap {
         return cityMap[layer][y][x].getTileColor();
     }
 
-    public void setCityMap(int width, int height, int layers) {
+    private void setCityMap(int width, int height, int layers) {
         if(width < 0 || height < 0 || layers < 0) {
             throw new IllegalArgumentException("In CityMap while setting map size, size was wrong");
         } else {
             cityMap = new StaticPoint[layers][height][width];
         }
     }
+
+
 
     public CityMap(int width, int height, int layers) {
         setCityMap(width, height, layers);

@@ -1,11 +1,15 @@
-package sample.structure.points;
+package sample.structure.points.permeable;
+
+import sample.structure.logic.ActionType;
+import sample.structure.logic.StaticPoint;
+import sample.structure.logic.TileColors;
 
 import java.util.List;
 
-public class Upstairs extends StaticPoint {
+public class Downstairs extends StaticPoint {
     @Override
     public void tileColor() {
-        super.tileColor = TileColors.UPSTAIRS_COLOR;
+        super.tileColor = TileColors.DOWNSTAIRS_COLOR;
     }
 
     @Override
@@ -19,7 +23,7 @@ public class Upstairs extends StaticPoint {
         return super.actionTypeList;
     }
 
-    public Upstairs(int x, int y) {
+    public Downstairs(int x, int y) {
         super(x, y);
     }
 }

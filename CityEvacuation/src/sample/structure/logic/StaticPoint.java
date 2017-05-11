@@ -1,11 +1,12 @@
-package sample.structure.points;
+package sample.structure.logic;
 
 import javafx.scene.paint.Color;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class StaticPoint {
+public abstract class StaticPoint implements Serializable{
     private int x;
     private int y;
 

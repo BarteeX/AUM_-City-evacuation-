@@ -63,7 +63,6 @@ public class MapEditorSet extends Application {
             slider.setMajorTickUnit(50);
             slider.setMinorTickCount(1);
             slider.setBlockIncrement(10);
-
             slider.setOnMouseDragged(event -> {
                 widthLabel.setText(widthTextButton + (int) widthSlider.getValue());
                 heightLabel.setText(heightTextButton + (int) heightSlider.getValue());

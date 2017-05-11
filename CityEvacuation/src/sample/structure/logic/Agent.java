@@ -1,12 +1,11 @@
-package sample.structure.points;
+package sample.structure.logic;
 
 import java.awt.*;
 import java.util.Random;
 
-import static sample.structure.points.ActionType.WALK_IN;
-
 public class Agent {
-    Point actualPosition, walkInPosition;
+    private Point actualPosition;
+    private Point walkInPosition;
 
     public Point dumbMove(Point mapSize) {
         Random dumb = new Random();
@@ -14,16 +13,20 @@ public class Agent {
         int switcher = dumb.nextInt()%8;
         switch(switcher) {
             case 0:
-                if(mapSize.x > actualPosition.x + 1) xMove = 1;
+                if(mapSize.x > actualPosition.x + 1)
+                    xMove = 1;
                 break;
             case 1:
-                if(actualPosition.x > 0) xMove = -1;
+                if(actualPosition.x > 0)
+                    xMove = -1;
                 break;
             case 2:
-                if(mapSize.y > actualPosition.y + 1) yMove = 1;
+                if(mapSize.y > actualPosition.y + 1)
+                    yMove = 1;
                 break;
             case 3:
-                if(actualPosition.y > 0) yMove = -1;
+                if(actualPosition.y > 0)
+                    yMove = -1;
                 break;
             case 4:
                 if(actualPosition.x > 0 && actualPosition.y > 0) {
@@ -58,7 +61,7 @@ public class Agent {
     }
 
     public boolean tryToMove(StaticPoint point) {
-        if(point.getPossibleActions().contains(WALK_IN)) {
+        if(point.getPossibleActions().contains(ActionType.WALK_IN)) {
             actualPosition = walkInPosition;
             return true;
         }
