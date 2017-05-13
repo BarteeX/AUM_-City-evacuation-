@@ -55,7 +55,7 @@ public class MainWindow extends Application {
             DirectoryChooser dC = new DirectoryChooser();
             dC.setInitialDirectory(new File("C:\\Users\\" + System.getProperty("user.name") + "\\Desktop"));
             File directory = dC.showDialog(mainStage);
-            if(directory.exists()) {
+            if(directory != null) {
                 new Evacuation(mainStage, directory);
             }
         });
@@ -126,8 +126,10 @@ public class MainWindow extends Application {
     public void start(Stage primaryStage){
         this.mainStage = primaryStage;
         this.mainStage.setTitle("City Evacuation");
-        this.mainStage.setHeight(420);
-        this.mainStage.setWidth(130);
+        primaryStage.setHeight(420);
+        primaryStage.setWidth(130);
+        primaryStage.setMinHeight(420);
+        primaryStage.setMinWidth(130);
 
         width = 100;
         height = 30;

@@ -6,7 +6,8 @@ import sample.structure.logic.StaticPoint;
 import java.util.List;
 
 import static sample.structure.logic.ActionType.*;
-import static sample.structure.logic.TileColors.WINDOW_COLOR;
+import static sample.structure.logic.TileColors.WINDOW_CLOSE_COLOR;
+import static sample.structure.logic.TileColors.WINDOW_OPEN_COLOR;
 
 public class Window extends StaticPoint {
     private boolean isOpen;
@@ -17,15 +18,17 @@ public class Window extends StaticPoint {
 
     public void setClose() {
         isOpen = false;
+        super.tileColor = WINDOW_CLOSE_COLOR;
     }
 
     public void setOpen() {
         isOpen = true;
+        super.tileColor = WINDOW_OPEN_COLOR;
     }
 
     @Override
     public void tileColor() {
-        super.tileColor = WINDOW_COLOR;
+        super.tileColor = WINDOW_CLOSE_COLOR;
     }
 
     @Override

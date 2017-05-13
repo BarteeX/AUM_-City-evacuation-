@@ -13,41 +13,41 @@ public class Agent {
         int switcher = dumb.nextInt()%8;
         switch(switcher) {
             case 0:
-                if(mapSize.x > actualPosition.x + 1)
+                if (mapSize.x > actualPosition.x + 1)
                     xMove = 1;
                 break;
             case 1:
-                if(actualPosition.x > 0)
+                if (actualPosition.x > 0)
                     xMove = -1;
                 break;
             case 2:
-                if(mapSize.y > actualPosition.y + 1)
+                if (mapSize.y > actualPosition.y + 1)
                     yMove = 1;
                 break;
             case 3:
-                if(actualPosition.y > 0)
+                if (actualPosition.y > 0)
                     yMove = -1;
                 break;
             case 4:
-                if(actualPosition.x > 0 && actualPosition.y > 0) {
+                if (actualPosition.x > 0 && actualPosition.y > 0) {
                     xMove = -1;
                     yMove = -1;
                 }
                 break;
             case 5:
-                if(mapSize.x > actualPosition.x + 1 && mapSize.y > actualPosition.y + 1) {
+                if (mapSize.x > actualPosition.x + 1 && mapSize.y > actualPosition.y + 1) {
                     xMove = 1;
                     yMove = 1;
                 }
                 break;
             case 6:
-                if(actualPosition.x > 0 && mapSize.y > actualPosition.y + 1) {
+                if (actualPosition.x > 0 && mapSize.y > actualPosition.y + 1) {
                     xMove = -1;
                     yMove = 1;
                 }
                 break;
             case 7:
-                if(mapSize.x > actualPosition.x + 1 && actualPosition.y > 0) {
+                if (mapSize.x > actualPosition.x + 1 && actualPosition.y > 0) {
                     xMove = 1;
                     yMove = -1;
                 }
@@ -66,6 +66,10 @@ public class Agent {
             return true;
         }
         else return false;
+    }
+
+    public boolean tryToInteract(StaticPoint point) {
+        return false;
     }
 
     public Point getActualPosition() {

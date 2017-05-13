@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class CityMap implements Serializable {
     private StaticPoint[][][] cityMap;
 
-    public void add(int x, int y, int layers, StaticPoint point) {
+    public void addPoint(int x, int y, int layers, StaticPoint point) {
         if(x < 0 || y < 0 || layers < 0) {
             throw new IllegalArgumentException("In CityMap while adding element size was wrong");
         } else {
@@ -16,7 +16,7 @@ public class CityMap implements Serializable {
         }
     }
 
-    public StaticPoint get(int x, int y, int layers) {
+    public StaticPoint getPoint(int x, int y, int layers) {
         if(x < 0 || y < 0 || layers < 0) {
             throw new IllegalArgumentException("In CityMap while adding element size was wrong");
         } else {
@@ -40,7 +40,7 @@ public class CityMap implements Serializable {
         return cityMap[0][0].length;
     }
 
-    public Color getTileColor(int x, int y, int layer) {
+    public Color getPointColor(int x, int y, int layer) {
         return cityMap[layer][y][x].getTileColor();
     }
 

@@ -2,9 +2,12 @@ package sample.structure.points.permeable;
 
 import sample.structure.logic.ActionType;
 import sample.structure.logic.StaticPoint;
-import sample.structure.logic.TileColors;
 
 import java.util.List;
+
+import static sample.structure.logic.ActionType.*;
+import static sample.structure.logic.TileColors.DOOR_CLOSE_COLOR;
+import static sample.structure.logic.TileColors.DOOR_OPEN_COLOR;
 
 public class Door extends StaticPoint {
     private boolean isOpen;
@@ -15,33 +18,35 @@ public class Door extends StaticPoint {
 
     public void setClose() {
         isOpen = false;
+        super.tileColor = DOOR_CLOSE_COLOR;
     }
 
     public void setOpen() {
         isOpen = true;
+        super.tileColor = DOOR_OPEN_COLOR;
     }
 
     @Override
     public void tileColor() {
-        super.tileColor = TileColors.DOOR_COLOR;
+        super.tileColor = DOOR_CLOSE_COLOR;
     }
 
     @Override
     public void setActionList() {
-        super.actionTypeList.add(ActionType.NONE);
-        super.actionTypeList.add(ActionType.OPEN);
-        super.actionTypeList.add(ActionType.CLOSE);
-        super.actionTypeList.add(ActionType.WALK_IN);
+        super.actionTypeList.add(NONE);
+        super.actionTypeList.add(OPEN);
+        super.actionTypeList.add(CLOSE);
+        super.actionTypeList.add(WALK_IN);
     }
 
     @Override
     public List<ActionType> getPossibleActions() {
         List<ActionType> actionTypeList = this.actionTypeList;
         if(isOpen()) {
-            actionTypeList.remove(ActionType.OPEN);
+            actionTypeList.remove(OPEN);
         } else {
-            actionTypeList.remove(ActionType.CLOSE);
-            actionTypeList.remove(ActionType.WALK_IN);
+            actionTypeList.remove(CLOSE);
+            actionTypeList.remove(WALK_IN);
         }
         return actionTypeList;
     }

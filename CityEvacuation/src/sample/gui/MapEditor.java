@@ -9,6 +9,9 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
+import javafx.scene.effect.Shadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
@@ -70,15 +73,24 @@ public class MapEditor extends Application{
     }
 
     private void setPrimaryStage(Stage primaryStage) {
+        primaryStage.setMinWidth(width * pixelSize + 300);
+        primaryStage.setMinHeight(height * pixelSize + 75);
         this.primaryStage = primaryStage;
     }
 
     private void setCanvas() {
         editorCanvasList.add(new Canvas(width*pixelSize, height*pixelSize));
         gcList.add(editorCanvasList.get(actualLayerIndex).getGraphicsContext2D());
-
-        gcList.get(actualLayerIndex).setFill(LAWN_COLOR);
-        gcList.get(actualLayerIndex).fillRect(0, 0, width*pixelSize, height*pixelSize);
+        if(numberOfLayers > 1) {
+            gcList.get(actualLayerIndex).setGlobalAlpha(0.3);
+            gcList.get(actualLayerIndex).clearRect(0 , 0, width*pixelSize, height*pixelSize);
+            gcList.get(actualLayerIndex).setFill(Color.BLACK);
+            gcList.get(actualLayerIndex).fillRect(0, 0, width*pixelSize, height*pixelSize);
+            gcList.get(actualLayerIndex).setGlobalAlpha(1);
+        } else {
+            gcList.get(actualLayerIndex).setFill(LAWN_COLOR);
+            gcList.get(actualLayerIndex).fillRect(0, 0, width*pixelSize, height*pixelSize);
+        }
 
         writableImage = new WritableImage((int)editorCanvasList.get(0).getWidth(), (int) editorCanvasList.get(actualLayerIndex).getHeight());
         pixelReader = writableImage.getPixelReader();
@@ -163,8 +175,6 @@ public class MapEditor extends Application{
                     }
                 }
             }
-
-
         });
         saveButton.setMinSize(100, 30);
     }
@@ -195,9 +205,9 @@ public class MapEditor extends Application{
                     }
                 }
             }
-                        layerChoiceBox.getItems().add("Add new layer...");
+            layerChoiceBox.getItems().add("Add new layer...");
         });
-
+        loadButton.setMinSize(100, 30);
     }
 
     private void setBackButton() {
@@ -237,10 +247,10 @@ public class MapEditor extends Application{
                     chooseColor = FLOOR_COLOR;
                     break;
                 case 3 :
-                    chooseColor = WINDOW_COLOR;
+                    chooseColor = WINDOW_CLOSE_COLOR;
                     break;
                 case 4 :
-                    chooseColor = DOOR_COLOR;
+                    chooseColor = DOOR_CLOSE_COLOR;
                     break;
                 case 5 :
                     chooseColor = FURNITURE_COLOR;
@@ -257,16 +267,18 @@ public class MapEditor extends Application{
                 default:
                     chooseColor = LAWN_COLOR;
             }
+            elementChoiceBox.setEffect(new Shadow(2, chooseColor));
             setPreviousColor(chooseColor == previous ? previous : actual);
             setActualColor(chooseColor);
             refreshActualCanvas();
         });
         elementChoiceBox.setMinWidth(100d);
+        elementChoiceBox.setMaxWidth(100d);
     }
 
     private void setLayersChoiceBox() {
         layerChoiceBox = new ChoiceBox(FXCollections.observableArrayList(
-                "1. Layers",
+                "1. Layer",
                 "Add new layer..."
         ));
         layerChoiceBox.getSelectionModel().selectFirst();
@@ -277,7 +289,7 @@ public class MapEditor extends Application{
                 layerChoiceBox.getItems().add(actualLayerIndex, numberOfLayers + ".Layer");
                 layerChoiceBox.getSelectionModel().select(actualLayerIndex);
                 setCanvas();
-                mapGrid.add(editorCanvasList.get(actualLayerIndex), 0, 1, 5, 5);
+                mapGrid.add(editorCanvasList.get(actualLayerIndex), 0, 0, 5 ,5);
             } else {
                 actualLayerIndex = layerChoiceBox.getSelectionModel().getSelectedIndex();
                 editorCanvasList.get(actualLayerIndex).toFront();
@@ -295,17 +307,32 @@ public class MapEditor extends Application{
             }
         });
         layerChoiceBox.setMinWidth(100d);
+        layerChoiceBox.setMaxWidth(100d);
+        layerChoiceBox.setTooltip(new Tooltip("Left click : choose \nRight click: delete last layer"));
+    }
+
+    private GridPane rightSideGridPane() {
+        GridPane right = new GridPane();
+        right.add(saveButton, 0 ,0);
+        right.add(loadButton, 1, 0);
+        right.add(new Label("Choose layer: "), 0, 1);
+        right.add(layerChoiceBox, 1, 1);
+        right.add(new Label("Choose elem.: "), 0, 2);
+        right.add(elementChoiceBox, 1, 2);
+        right.add(actualColorCanvas, 0, 3);
+        right.add(backButton, 1, 3);
+        right.setHgap(15);
+        right.setVgap(15);
+        right.setPadding(new Insets(10, 10 ,10 ,10));
+        right.setStyle(" -fx-border-color : black; -fx-border-radius : 3; -fx-alignment: center;");
+
+        return right;
     }
 
     private void setGridPane() {
         mapGrid = new GridPane();
-        mapGrid.add(editorCanvasList.get(actualLayerIndex), 0, 1, 5, 5);
-        mapGrid.add(layerChoiceBox, 0, 0);
-        mapGrid.add(elementChoiceBox, 1, 0);
-        mapGrid.add(saveButton, 2, 0);
-        mapGrid.add(backButton, 3, 0);
-        mapGrid.add(actualColorCanvas, 0, 7);
-        mapGrid.add(loadButton, 1, 7);
+        mapGrid.add(editorCanvasList.get(actualLayerIndex), 0, 0, 5, 5);
+        mapGrid.add(rightSideGridPane(), 6, 0, 2, 5);
         mapGrid.setBackground(
                 new Background(
                         new BackgroundFill(
@@ -335,9 +362,8 @@ public class MapEditor extends Application{
         setLayersChoiceBox();
         setGridPane();
 
-        primaryStage.setWidth(width*pixelSize + 160);
-        primaryStage.setHeight(height*pixelSize + 200);
-        primaryStage.setScene(new Scene(mapGrid));
+        Scene scene = new Scene(mapGrid);
+        primaryStage.setScene(scene);
         primaryStage.show();
     }
 

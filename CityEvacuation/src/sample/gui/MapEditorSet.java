@@ -20,6 +20,7 @@ public class MapEditorSet extends Application {
     private Label widthLabel;
     private Label heightLabel;
     private Label pixelLabel;
+    private Label[] labels;
 
     private Slider widthSlider;
     private Slider heightSlider;
@@ -36,6 +37,8 @@ public class MapEditorSet extends Application {
         primaryStage.setTitle("City Evacuation");
         primaryStage.setHeight(200);
         primaryStage.setWidth(300);
+        primaryStage.setMinHeight(200);
+        primaryStage.setMinWidth(300);
     }
 
     private void setLabels() {
@@ -45,6 +48,12 @@ public class MapEditorSet extends Application {
         widthLabel = new Label(widthTextButton + "20");
         heightLabel = new Label(heightTextButton + "20");
         pixelLabel = new Label(pixelTextButton + "10");
+
+        labels = new Label[]{widthLabel, heightLabel, pixelLabel};
+    }
+
+    private int makeItEven(int number) {
+        return (number + (((number%2) == 1) ? 1 : 0));
     }
 
     private void setSliders() {
@@ -61,11 +70,11 @@ public class MapEditorSet extends Application {
             slider.setShowTickLabels(true);
             slider.setShowTickMarks(true);
             slider.setMajorTickUnit(50);
-            slider.setMinorTickCount(1);
+            slider.setMinorTickCount(2);
             slider.setBlockIncrement(10);
             slider.setOnMouseDragged(event -> {
-                widthLabel.setText(widthTextButton + (int) widthSlider.getValue());
-                heightLabel.setText(heightTextButton + (int) heightSlider.getValue());
+                widthLabel.setText(widthTextButton + makeItEven((int) widthSlider.getValue()));
+                heightLabel.setText(heightTextButton + makeItEven((int) heightSlider.getValue()));
                 pixelLabel.setText(pixelTextButton + (int) pixelSlider.getValue());
             });
         }
@@ -75,15 +84,19 @@ public class MapEditorSet extends Application {
         pixelSlider.setBlockIncrement(5);
     }
 
+    private void build() {
+        int width = makeItEven((int) widthSlider.getValue());
+        int height = makeItEven((int) heightSlider.getValue());
+        System.out.println(width + " x " + height);
+        int pixelSize = (int) pixelSlider.getValue();
+        new MapEditor(primaryStage, width, height, pixelSize);
+    }
+
     private void setButtons() {
         buildButton = new Button("Build");
         buildButton.setAlignment(Pos.CENTER);
         buildButton.setOnMouseClicked(event -> {
-            int width = (int) widthSlider.getValue();
-            int height = (int) heightSlider.getValue();
-            int pixelSize = (int) pixelSlider.getValue();
-
-            new MapEditor(primaryStage, width, height, pixelSize);
+            build();
         });
 
         backButton = new Button("Back");

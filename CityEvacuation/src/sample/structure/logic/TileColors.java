@@ -6,8 +6,10 @@ public class TileColors {
     public static Color WALL_COLOR = Color.BLACK;
     public static Color ROAD_COLOR = Color.GRAY;
     public static Color FLOOR_COLOR = Color.WHITE;
-    public static Color WINDOW_COLOR = Color.BLUE;
-    public static Color DOOR_COLOR = Color.BROWN;
+    public static Color WINDOW_CLOSE_COLOR = Color.BLUE;
+    public static Color WINDOW_OPEN_COLOR = Color.LIGHTBLUE;
+    public static Color DOOR_CLOSE_COLOR = Color.BROWN;
+    public static Color DOOR_OPEN_COLOR = Color.ROSYBROWN;
     public static Color FURNITURE_COLOR = Color.LIGHTGREEN;
     public static Color UPSTAIRS_COLOR = Color.YELLOW;
     public static Color DOWNSTAIRS_COLOR = Color.PURPLE;
