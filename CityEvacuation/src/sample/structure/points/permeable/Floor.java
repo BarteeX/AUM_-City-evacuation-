@@ -24,6 +24,11 @@ public class Floor extends StaticPoint {
         return super.actionTypeList;
     }
 
+    @Override
+    public boolean interact() {
+        return false;
+    }
+
     public Floor(int x, int y) {
         super(x, y);
     }

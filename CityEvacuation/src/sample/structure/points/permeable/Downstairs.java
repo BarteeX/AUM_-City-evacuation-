@@ -23,6 +23,11 @@ public class Downstairs extends StaticPoint {
         return super.actionTypeList;
     }
 
+    @Override
+    public boolean interact() {
+        return false;
+    }
+
     public Downstairs(int x, int y) {
         super(x, y);
     }

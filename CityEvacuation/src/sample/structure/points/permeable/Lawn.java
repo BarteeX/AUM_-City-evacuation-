@@ -26,6 +26,11 @@ public class Lawn extends StaticPoint {
         return super.actionTypeList;
     }
 
+    @Override
+    public boolean interact() {
+        return false;
+    }
+
     public Lawn(int x, int y) {
         super(x, y);
     }

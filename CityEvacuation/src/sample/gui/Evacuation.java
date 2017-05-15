@@ -16,6 +16,8 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.*;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import sample.structure.logic.Agent;
 import sample.structure.logic.StaticPoint;
@@ -101,12 +103,36 @@ public class Evacuation extends Application {
 
     private GridPane rightBar() {
         GridPane gridPane = new GridPane();
-        gridPane.add(new Label("Adding: "), 6, 0);
-        gridPane.add(agentCheckbox, 7, 0 );
-        gridPane.add(new Label("Choose: "), 6, 1);
-        gridPane.add(layerListChoiceBox, 7, 1);
-        gridPane.add(iterationButton, 6, 2);
-        gridPane.add(backButton, 7, 2);
+        gridPane.add(new Label("Adding: "), 0, 0);
+        gridPane.add(agentCheckbox, 1, 0 );
+        gridPane.add(new Label("Choose: "), 0, 1);
+        gridPane.add(layerListChoiceBox, 1, 1);
+        gridPane.add(iterationButton, 0, 2);
+        gridPane.add(backButton, 1, 2);
+        gridPane.add(new Label("Legend"), 0, 3, 2, 1);
+        gridPane.add(new Label("Wall: "), 0, 4);
+        gridPane.add(new Rectangle(20, 20, WALL_COLOR), 1, 4);
+        gridPane.add(new Label("Road: "), 0, 5);
+        gridPane.add(new Rectangle(20, 20, ROAD_COLOR), 1, 5);
+        gridPane.add(new Label("Floor: "), 0, 6);
+        gridPane.add(new Rectangle(20, 20, FLOOR_COLOR), 1, 6);
+        gridPane.add(new Label("Window(close): "), 0, 7);
+        gridPane.add(new Rectangle(20, 20, WINDOW_CLOSE_COLOR), 1, 7);
+        gridPane.add(new Label("Window(open): "), 0, 8);
+        gridPane.add(new Rectangle(20, 20, WINDOW_OPEN_COLOR), 1, 8);
+        gridPane.add(new Label("Door(open): "), 0, 9);
+        gridPane.add(new Rectangle(20, 20, DOOR_OPEN_COLOR), 1, 9);
+        gridPane.add(new Label("Door(close): "), 0, 10);
+        gridPane.add(new Rectangle(20, 20, DOOR_CLOSE_COLOR), 1, 10);
+        gridPane.add(new Label("Furniture: "), 0, 11);
+        gridPane.add(new Rectangle(20, 20, FURNITURE_COLOR), 1, 11);
+        gridPane.add(new Label("Upstairs: "), 0, 12);
+        gridPane.add(new Rectangle(20, 20, UPSTAIRS_COLOR), 1, 12);
+        gridPane.add(new Label("Downstairs: "), 0, 13);
+        gridPane.add(new Rectangle(20, 20, DOWNSTAIRS_COLOR), 1, 13);
+        gridPane.add(new Label("SafeZone: "), 0, 14);
+        gridPane.add(new Rectangle(20, 20, SAFE_ZONE_COLOR), 1, 14);
+        gridPane.setAlignment(Pos.CENTER);
         gridPane.setPadding(new Insets(15, 15, 15, 15));
         gridPane.setHgap(5);
         gridPane.setVgap(5);
@@ -139,13 +165,22 @@ public class Evacuation extends Application {
         agentCheckbox.setOnAction(event -> addingAgents = agentCheckbox.isSelected());
         for(Canvas agentsCanvas : agentsCanvasList) {
             agentsCanvas.setOnMousePressed(event -> {
-                if(addingAgents) {
-                    agentsCanvas.getGraphicsContext2D().setFill(AGENT_COLOR);
-                    int x = (int) event.getX()/TILE_SIZE;
-                    int y = (int) event.getY()/TILE_SIZE;
+                GraphicsContext gC = agentsCanvas.getGraphicsContext2D();
+                int x = (int) event.getX()/TILE_SIZE;
+                int y = (int) event.getY()/TILE_SIZE;
+                if(addingAgents && event.isPrimaryButtonDown()) {
+                    gC.setFill(AGENT_COLOR);
                     if(map.getPoint(x, y, actualNumLayer).getPossibleActions().contains(WALK_IN)) {
-                        agentsCanvas.getGraphicsContext2D().fillRect(x*TILE_SIZE, y*TILE_SIZE, TILE_SIZE, TILE_SIZE);
-                        agentList.get(actualNumLayer).add(new Agent(x, y));
+                        gC.fillRect(x*TILE_SIZE, y*TILE_SIZE, TILE_SIZE, TILE_SIZE);
+                        agentList.get(actualNumLayer).add(new Agent(x, y, map.getSize()));
+                    }
+                }else if (event.isSecondaryButtonDown()) {
+                    gC.clearRect(x*TILE_SIZE, y*TILE_SIZE, TILE_SIZE, TILE_SIZE);
+                    List<Agent> agentsLayerList = agentList.get(actualNumLayer);
+                    for(int i = 0; i < agentsLayerList.size(); ++i) {
+                        if(agentsLayerList.get(i).getActualPosition().equals(new Point(x, y))) {
+                            agentsLayerList.remove(i);
+                        }
                     }
                 }
             });
@@ -155,31 +190,45 @@ public class Evacuation extends Application {
     private void setIterationButton() {
         iterationButton = new Button("Iterate");
         iterationButton.setOnAction(event -> {
-            for(int i = 0; i < 10; ++i) {
+            for(int i = 0; i < 1; ++i) {
                 iteration();
             }
         });
     }
 
-    private void iteration() {
+    private void redrawCanvas(int layer) {
+        GraphicsContext gC = layersCanvasList.get(layer).getGraphicsContext2D();
+        for(int y = 0; y < height; ++y) {
+            for(int x = 0; x < width; ++x) {
+                Color paintingColor = map.getPointColor(x, y, layer);
+                gC.setFill(paintingColor);
+                gC.fillRect(x*TILE_SIZE, y*TILE_SIZE, TILE_SIZE, TILE_SIZE);
+            }
+        }
+    }
+
+    private void iteration() { // need to another way
         for(Canvas agentsCanvas : agentsCanvasList) {
             agentsCanvas.getGraphicsContext2D().clearRect(0,0, agentsCanvas.getWidth(), agentsCanvas.getHeight());
             for(List<Agent> agents : agentList) {
                 for(Agent agent : agents) {
-                    Point toGo = agent.dumbMove(new Point(5, 5));
-                    StaticPoint toGoPoint = map.getPoint(toGo.x, toGo.y, actualNumLayer);
-                    if(agent.tryToMove(toGoPoint)) {
-                        GraphicsContext gC = agentsCanvas.getGraphicsContext2D();
-                        gC.setFill(AGENT_COLOR);
-                        int x = agent.getActualPosition().x;
-                        int y = agent.getActualPosition().y;
-                        gC.fillRect(x*TILE_SIZE, y*TILE_SIZE, TILE_SIZE, TILE_SIZE);
-                    }
+                    Point lookingAt = agent.lookingAt();
+                    int layerIterator = agentsCanvasList.indexOf(agentsCanvas);
+                    StaticPoint point = map.getPoint(lookingAt.x, lookingAt.y, layerIterator);
+                    map.addPoint(agentsCanvasList.indexOf(agentsCanvas), agent.doAction(point));
+                    redrawCanvas(layerIterator);
+                    agentsCanvas.getGraphicsContext2D().setFill(AGENT_COLOR);
+                    agentsCanvas.getGraphicsContext2D()
+                        .fillRect(
+                            agent.getActualPosition().x * TILE_SIZE,
+                            agent.getActualPosition().y * TILE_SIZE,
+                            TILE_SIZE,
+                            TILE_SIZE
+                    );
                 }
             }
             agentsCanvas.toFront();
         }
-
     }
 
     @Override
@@ -216,7 +265,7 @@ public class Evacuation extends Application {
             for(int x = 0; x < this.width; ++x) {
                 Color tileColor = pR.getColor(x, y);
                 StaticPoint toAdd = checker(x, y, tileColor);
-                map.addPoint(x, y, layer, toAdd);
+                map.addPoint(layer, toAdd);
             }
         }
     }

@@ -19,11 +19,17 @@ public class Door extends StaticPoint {
     public void setClose() {
         isOpen = false;
         super.tileColor = DOOR_CLOSE_COLOR;
+        super.actionTypeList.remove(CLOSE);
+        super.actionTypeList.remove(WALK_IN);
+        super.actionTypeList.add(OPEN);
     }
 
     public void setOpen() {
         isOpen = true;
         super.tileColor = DOOR_OPEN_COLOR;
+        super.actionTypeList.remove(OPEN);
+        super.actionTypeList.add(CLOSE);
+        super.actionTypeList.add(WALK_IN);
     }
 
     @Override
@@ -35,25 +41,22 @@ public class Door extends StaticPoint {
     public void setActionList() {
         super.actionTypeList.add(NONE);
         super.actionTypeList.add(OPEN);
-        super.actionTypeList.add(CLOSE);
-        super.actionTypeList.add(WALK_IN);
     }
 
     @Override
     public List<ActionType> getPossibleActions() {
-        List<ActionType> actionTypeList = this.actionTypeList;
-        if(isOpen()) {
-            actionTypeList.remove(OPEN);
-        } else {
-            actionTypeList.remove(CLOSE);
-            actionTypeList.remove(WALK_IN);
-        }
-        return actionTypeList;
+        return super.actionTypeList;
+    }
+
+    @Override
+    public boolean interact() {
+        if(isOpen()) setClose();
+        else setOpen();
+        return true;
     }
 
     public Door(int x, int y) {
         super(x, y);
-        setClose();
     }
 
     public Door(int x, int y, boolean isOpen) {

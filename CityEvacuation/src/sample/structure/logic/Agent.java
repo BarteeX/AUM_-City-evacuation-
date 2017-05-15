@@ -2,85 +2,91 @@ package sample.structure.logic;
 
 import java.awt.*;
 import java.util.Random;
+import java.util.List;
+
+import static sample.structure.logic.ActionType.*;
 
 public class Agent {
     private Point actualPosition;
-    private Point walkInPosition;
+    private Point lookingAt;
 
-    public Point dumbMove(Point mapSize) {
+    private int widthBorder;
+    private int heightBorder;
+
+    public Point lookingAt() {
         Random dumb = new Random();
-        int xMove = 0, yMove = 0;
-        int switcher = dumb.nextInt()%8;
-        switch(switcher) {
-            case 0:
-                if (mapSize.x > actualPosition.x + 1)
-                    xMove = 1;
-                break;
-            case 1:
-                if (actualPosition.x > 0)
-                    xMove = -1;
-                break;
-            case 2:
-                if (mapSize.y > actualPosition.y + 1)
-                    yMove = 1;
-                break;
-            case 3:
-                if (actualPosition.y > 0)
-                    yMove = -1;
-                break;
-            case 4:
-                if (actualPosition.x > 0 && actualPosition.y > 0) {
-                    xMove = -1;
-                    yMove = -1;
-                }
-                break;
-            case 5:
-                if (mapSize.x > actualPosition.x + 1 && mapSize.y > actualPosition.y + 1) {
-                    xMove = 1;
-                    yMove = 1;
-                }
-                break;
-            case 6:
-                if (actualPosition.x > 0 && mapSize.y > actualPosition.y + 1) {
-                    xMove = -1;
-                    yMove = 1;
-                }
-                break;
-            case 7:
-                if (mapSize.x > actualPosition.x + 1 && actualPosition.y > 0) {
-                    xMove = 1;
-                    yMove = -1;
-                }
-                break;
-        }
-        if(actualPosition.x + xMove < 0 || actualPosition.y + yMove < 0) {
-            return actualPosition;
+        int xMove = dumb.nextInt()%2;// - 1;
+        int yMove = dumb.nextInt()%2;// - 1;
+        int newPositionX = actualPosition.x + xMove;
+        int newPositionY = actualPosition.y + yMove;
+        if(newPositionX >= 0 && newPositionX < widthBorder
+                && newPositionY >= 0 && newPositionY < heightBorder) {
+            return lookingAt = new Point(newPositionX, newPositionY);
         } else {
-            return walkInPosition = new Point(actualPosition.x + xMove, actualPosition.y + yMove);
+            return lookingAt = actualPosition;
         }
     }
 
-    public boolean tryToMove(StaticPoint point) {
-        if(point.getPossibleActions().contains(ActionType.WALK_IN)) {
-            actualPosition = walkInPosition;
-            return true;
+    /**
+     * Function looking for index of max element in @param tab
+     * @param tab searched tab
+     * @return idext of maximum element in table
+     */
+    private int indexOfMax(int[] tab) {
+        int max = 0;
+        for(int i = 0; i < tab.length; ++i) {
+            if(tab[i] > tab[max]) max = i;
         }
-        else return false;
+        return max;
     }
 
-    public boolean tryToInteract(StaticPoint point) {
-        return false;
+    /**
+     * Function draw values for each possible action, and take action with the biggest number.
+     *
+     * @param point interaction were checking on this point
+     * @return randomly choose ActionType from possible actions from point
+     */
+    public ActionType getAction(StaticPoint point) {
+        List<ActionType> possibleActions = point.getPossibleActions();
+        int[] randChooseTab = new int[possibleActions.size()];
+        for(ActionType action : possibleActions) {
+            int iterator = possibleActions.indexOf(action);
+            randChooseTab[iterator] = new Random().nextInt()%10;
+        }
+        return possibleActions.get(indexOfMax(randChooseTab));
+    }
+
+    public StaticPoint doAction(StaticPoint point) {
+        ActionType action = getAction(point);
+        if(action.equals(NONE)) {
+            return point;
+        } else if(action.equals(WALK_IN)) {
+            actualPosition = lookingAt;
+        } else if(action.equals(OPEN)) {
+            point.interact();
+        } else if(action.equals(CLOSE)&& (actualPosition != lookingAt)) {
+            point.interact();
+        } else if(action.equals(MOVE_IT)) {
+            point.interact();
+        }
+        return point;
     }
 
     public Point getActualPosition() {
         return actualPosition;
     }
 
-    public Agent(int x, int y) {
+    public void setBorders(int[] mapSize) {
+        this.widthBorder = mapSize[0];
+        this.heightBorder = mapSize[1];
+    }
+
+    public Agent(int x, int y, int[] mapSize) {
         if(x < 0 || y < 0) {
             throw new IllegalArgumentException("Position of agent was invalid");
         } else {
             actualPosition = new Point(x, y);
+            setBorders(mapSize);
         }
     }
 }

@@ -2,11 +2,10 @@ package sample.structure.logic;
 
 import javafx.scene.paint.Color;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class StaticPoint implements Serializable{
+public abstract class StaticPoint {
     private int x;
     private int y;
 
@@ -44,6 +43,7 @@ public abstract class StaticPoint implements Serializable{
     public abstract void tileColor();
     public abstract void setActionList();
     public abstract List<ActionType> getPossibleActions();
+    public abstract boolean interact();
 
     public StaticPoint(int x, int y) {
         this.setX(x);

@@ -27,6 +27,11 @@ public class Road extends StaticPoint {
         return super.actionTypeList;
     }
 
+    @Override
+    public boolean interact() {
+        return false;
+    }
+
     public Road(int x, int y) {
         super(x, y);
     }

@@ -26,6 +26,11 @@ public class SafeZone extends StaticPoint {
         return super.actionTypeList;
     }
 
+    @Override
+    public boolean interact() {
+        return false;
+    }
+
     public SafeZone(int x, int y) {
         super(x, y);
     }

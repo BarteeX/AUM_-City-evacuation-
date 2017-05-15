@@ -5,15 +5,11 @@ import sample.structure.logic.StaticPoint;
 
 import java.io.Serializable;
 
-public class CityMap implements Serializable {
+public class CityMap {
     private StaticPoint[][][] cityMap;
 
-    public void addPoint(int x, int y, int layers, StaticPoint point) {
-        if(x < 0 || y < 0 || layers < 0) {
-            throw new IllegalArgumentException("In CityMap while adding element size was wrong");
-        } else {
-            cityMap[layers][y][x] = point;
-        }
+    public void addPoint(int layers, StaticPoint point) {
+        cityMap[layers][point.getY()][point.getX()] = point;
     }
 
     public StaticPoint getPoint(int x, int y, int layers) {
@@ -40,9 +36,14 @@ public class CityMap implements Serializable {
         return cityMap[0][0].length;
     }
 
+    public int[] getSize() {
+        return new int[]{getWidth(), getHeight(), getNumberOfLayers()};
+    }
+
     public Color getPointColor(int x, int y, int layer) {
         return cityMap[layer][y][x].getTileColor();
     }
+
 
     private void setCityMap(int width, int height, int layers) {
         if(width < 0 || height < 0 || layers < 0) {

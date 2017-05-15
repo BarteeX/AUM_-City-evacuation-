@@ -25,6 +25,11 @@ public class Wall extends StaticPoint {
         return super.actionTypeList;
     }
 
+    @Override
+    public boolean interact() {
+        return false;
+    }
+
     public Wall(int x, int y) {
         super(x, y);
     }
