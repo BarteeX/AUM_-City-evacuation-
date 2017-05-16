@@ -16,6 +16,9 @@ public class TileColors {
     public static Color SAFE_ZONE_COLOR = Color.LIGHTPINK;
     public static Color LAWN_COLOR = Color.DARKGREEN;
     public static Color AGENT_COLOR = Color.DARKCYAN;
+    public static Color FLAME_COLOR = Color.RED;
+    public static Color SMOKE_COLOR = Color.DARKGRAY;
+
 
     public static int TILE_SIZE = 10;
 }

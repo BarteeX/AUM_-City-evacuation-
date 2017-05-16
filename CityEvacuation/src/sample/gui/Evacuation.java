@@ -22,10 +22,12 @@ import javafx.stage.Stage;
 import sample.structure.logic.Agent;
 import sample.structure.logic.StaticPoint;
 import sample.structure.map.CityMap;
+import sample.structure.map.Fire;
 import sample.structure.points.impenetrable.Furniture;
 import sample.structure.points.impenetrable.Wall;
 import sample.structure.points.permeable.*;
 import sample.structure.points.permeable.Window;
+
 
 import java.awt.*;
 import java.io.File;
@@ -44,6 +46,7 @@ public class Evacuation extends Application {
     private CheckBox agentCheckbox;
     private ChoiceBox layerListChoiceBox;
     private CityMap map;
+    private Fire fire;
 
     private int width, height, numberOfLayers, actualNumLayer;
     private boolean addingAgents;
@@ -58,6 +61,7 @@ public class Evacuation extends Application {
         for(int layer = 0; layer < numberOfLayers; ++layer) {
             agentList.add(new ArrayList<>());
         }
+        fire = new Fire(6);
     }
 
     private void setPrimaryStage(Stage primaryStage) {
@@ -208,6 +212,9 @@ public class Evacuation extends Application {
     }
 
     private void iteration() { // need to another way
+
+        fire.fireUpdate(map);
+        redrawCanvas(0);
         for(Canvas agentsCanvas : agentsCanvasList) {
             agentsCanvas.getGraphicsContext2D().clearRect(0,0, agentsCanvas.getWidth(), agentsCanvas.getHeight());
             for(List<Agent> agents : agentList) {
@@ -256,6 +263,8 @@ public class Evacuation extends Application {
         else if(tileColor.equals(UPSTAIRS_COLOR)) return new Upstairs(x, y);
         else if(tileColor.equals(DOWNSTAIRS_COLOR)) return new Downstairs(x, y);
         else if(tileColor.equals(SAFE_ZONE_COLOR)) return new SafeZone(x, y);
+        else if(tileColor.equals(FLAME_COLOR)) return new Flame(x, y);
+        else if(tileColor.equals(SMOKE_COLOR)) return new Flame(x, y);
         else return new Lawn(x, y);
     }
 

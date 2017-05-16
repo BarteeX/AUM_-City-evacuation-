@@ -10,7 +10,7 @@ public class Main extends Application{
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.setResizable(true);
+        primaryStage.setResizable(false);
         new MainWindow(primaryStage);
     }
 
