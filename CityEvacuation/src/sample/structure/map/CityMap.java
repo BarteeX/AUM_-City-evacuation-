@@ -9,14 +9,14 @@ public class CityMap {
     private StaticPoint[][][] cityMap;
 
     public void addPoint(int layers, StaticPoint point) {
-        cityMap[layers][point.getY()][point.getX()] = point;
+        cityMap[layers][point.getX()][point.getY()] = point;
     }
 
     public StaticPoint getPoint(int x, int y, int layers) {
         if(x < 0 || y < 0 || layers < 0) {
             throw new IllegalArgumentException("In CityMap while adding element size was wrong");
         } else {
-            return cityMap[layers][y][x];
+            return cityMap[layers][x][y];
         }
     }
 
@@ -41,7 +41,7 @@ public class CityMap {
     }
 
     public Color getPointColor(int x, int y, int layer) {
-        return cityMap[layer][y][x].getTileColor();
+        return cityMap[layer][x][y].getTileColor();
     }
 
 
@@ -49,7 +49,7 @@ public class CityMap {
         if(width < 0 || height < 0 || layers < 0) {
             throw new IllegalArgumentException("In CityMap while setting map size, size was wrong");
         } else {
-            cityMap = new StaticPoint[layers][height][width];
+            cityMap = new StaticPoint[layers][width][height];
         }
     }
 

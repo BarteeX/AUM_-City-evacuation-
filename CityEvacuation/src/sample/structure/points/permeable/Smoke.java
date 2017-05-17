@@ -3,6 +3,7 @@ package sample.structure.points.permeable;
 import sample.structure.logic.ActionType;
 import sample.structure.logic.StaticPoint;
 import sample.structure.logic.TileColors;
+import sample.structure.logic.Weight;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
 public class Smoke extends StaticPoint {
 
     public Smoke(int x, int y) {
-        super(x, y);
+        super(x, y, Weight.smoke);
     }
 
     @Override

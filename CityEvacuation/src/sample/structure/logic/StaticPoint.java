@@ -8,6 +8,7 @@ import java.util.List;
 public abstract class StaticPoint {
     private int x;
     private int y;
+    public int weight;
 
     protected Color tileColor;
     protected List<ActionType> actionTypeList;
@@ -45,11 +46,12 @@ public abstract class StaticPoint {
     public abstract List<ActionType> getPossibleActions();
     public abstract boolean interact();
 
-    public StaticPoint(int x, int y) {
+    public StaticPoint(int x, int y, int weight) {
         this.setX(x);
         this.setY(y);
         this.tileColor();
         this.actionTypeList = new ArrayList<>();
         this.setActionList();
+        this.weight = weight;
     }
 }

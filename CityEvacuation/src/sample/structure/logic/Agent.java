@@ -1,8 +1,11 @@
 package sample.structure.logic;
 
+import sample.structure.map.CityMap;
+
 import java.awt.*;
 import java.util.Random;
 import java.util.List;
+import java.util.ArrayList;
 
 import static sample.structure.logic.ActionType.*;
 
@@ -12,6 +15,31 @@ public class Agent {
 
     private int widthBorder;
     private int heightBorder;
+
+    public Point panicMovement(StaticPoint[][][] map){
+        int minWeight = 571; //magic number
+        Point point = new Point(0, 0);
+        List<Point> possibleMoves = new ArrayList<>();
+        Point [] moves = {
+                new Point(-1, 0),
+                new Point(1, 0),
+                new Point(0, -1),
+                new Point(0, 1)
+        };
+        //actualPosition = new Point(actualPosition.x + point.x, actualPosition.y + point.y);
+        for(int i = 0; i < 4 ;i++){
+            if(map[0][actualPosition.x + moves[i].x][actualPosition.y + moves[i].y].weight <= minWeight)
+                minWeight = map[0][actualPosition.x + moves[i].x][actualPosition.y + moves[i].y].weight;
+        }
+        for(int i = 0; i < 4 ;i++){
+            if(map[0][actualPosition.x + moves[i].x][actualPosition.y + moves[i].y].weight == minWeight){
+                possibleMoves.add(moves[i]);
+            }
+        }
+        Random rand = new Random();
+        point = possibleMoves.get(rand.nextInt(possibleMoves.size()));
+        return lookingAt = new Point(actualPosition.x + point.x, actualPosition.y + point.y);
+    }
 
     public Point lookingAt() {
         Random dumb = new Random();

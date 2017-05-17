@@ -3,6 +3,7 @@ package sample.structure.points.impenetrable;
 import sample.structure.logic.ActionType;
 import sample.structure.logic.StaticPoint;
 import sample.structure.logic.TileColors;
+import sample.structure.logic.Weight;
 
 import java.util.List;
 
@@ -29,6 +30,6 @@ public class Furniture extends StaticPoint {
     }
 
     public Furniture(int x, int y) {
-        super(x, y);
+        super(x, y, Weight.furniture);
     }
 }

@@ -5,5 +5,6 @@ public enum ActionType {
     WALK_IN,
     OPEN,
     CLOSE,
-    MOVE_IT
+    MOVE_IT,
+    BURN
 }

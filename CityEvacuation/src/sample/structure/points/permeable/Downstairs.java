@@ -29,6 +29,6 @@ public class Downstairs extends StaticPoint {
     }
 
     public Downstairs(int x, int y) {
-        super(x, y);
+        super(x, y, 100);
     }
 }

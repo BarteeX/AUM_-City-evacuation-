@@ -16,7 +16,6 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.*;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import sample.structure.logic.Agent;
@@ -219,7 +218,8 @@ public class Evacuation extends Application {
             agentsCanvas.getGraphicsContext2D().clearRect(0,0, agentsCanvas.getWidth(), agentsCanvas.getHeight());
             for(List<Agent> agents : agentList) {
                 for(Agent agent : agents) {
-                    Point lookingAt = agent.lookingAt();
+                    Point lookingAt = agent.panicMovement(map.getMap());
+                    //Point lookingAt = agent.lookingAt();
                     int layerIterator = agentsCanvasList.indexOf(agentsCanvas);
                     StaticPoint point = map.getPoint(lookingAt.x, lookingAt.y, layerIterator);
                     map.addPoint(agentsCanvasList.indexOf(agentsCanvas), agent.doAction(point));

@@ -2,6 +2,7 @@ package sample.structure.points.permeable;
 
 import sample.structure.logic.ActionType;
 import sample.structure.logic.StaticPoint;
+import sample.structure.logic.Weight;
 
 import java.util.List;
 
@@ -32,6 +33,6 @@ public class Lawn extends StaticPoint {
     }
 
     public Lawn(int x, int y) {
-        super(x, y);
+        super(x, y, Weight.lawn);
     }
 }
