@@ -20,6 +20,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import sample.structure.logic.Agent;
 import sample.structure.logic.StaticPoint;
+import sample.structure.logic.Weight;
 import sample.structure.map.CityMap;
 import sample.structure.map.Fire;
 import sample.structure.points.impenetrable.Furniture;
@@ -60,7 +61,7 @@ public class Evacuation extends Application {
         for(int layer = 0; layer < numberOfLayers; ++layer) {
             agentList.add(new ArrayList<>());
         }
-        fire = new Fire(6);
+        fire = new Fire(10);
     }
 
     private void setPrimaryStage(Stage primaryStage) {
@@ -212,7 +213,7 @@ public class Evacuation extends Application {
 
     private void iteration() { // need to another way
 
-        fire.fireUpdate(map);
+        //fire.fireUpdate(map);
         redrawCanvas(0);
         for(Canvas agentsCanvas : agentsCanvasList) {
             agentsCanvas.getGraphicsContext2D().clearRect(0,0, agentsCanvas.getWidth(), agentsCanvas.getHeight());
@@ -302,5 +303,11 @@ public class Evacuation extends Application {
     public Evacuation(Stage primaryStage, File directory) {
         setupMap(directory);
         start(primaryStage);
+        map.weightInit(map);
+        for(int i = 0; i < 50;i++) {
+            for (int j = 0; j < 50; j++)
+                System.out.print(map.getMap()[0][i][j].weight + " ");
+            System.out.println();
+        }
     }
 }

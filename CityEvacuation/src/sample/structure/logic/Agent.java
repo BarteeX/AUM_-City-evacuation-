@@ -13,11 +13,13 @@ public class Agent {
     private Point actualPosition;
     private Point lookingAt;
 
+    private Point destination = new Point(28, 20);
+
     private int widthBorder;
     private int heightBorder;
 
     public Point panicMovement(StaticPoint[][][] map){
-        int minWeight = 571; //magic number
+        float minWeight = 571; //magic number
         Point point = new Point(0, 0);
         List<Point> possibleMoves = new ArrayList<>();
         Point [] moves = {
