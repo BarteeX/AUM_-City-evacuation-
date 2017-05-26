@@ -18,9 +18,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import sample.structure.logic.Agent;
-import sample.structure.logic.StaticPoint;
-import sample.structure.logic.Weight;
+import sample.structure.logic.*;
 import sample.structure.map.CityMap;
 import sample.structure.map.Fire;
 import sample.structure.points.impenetrable.Furniture;
@@ -33,6 +31,7 @@ import java.awt.*;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import static sample.structure.logic.ActionType.WALK_IN;
 import static sample.structure.logic.TileColors.*;
@@ -47,6 +46,13 @@ public class Evacuation extends Application {
     private ChoiceBox layerListChoiceBox;
     private CityMap map;
     private Fire fire;
+    private static final int FINISH_BONUS = 1000;
+    private static final int ITERATION_PUNISHMENT = -1;
+    private List<Agent> deadAgents = new ArrayList<>();
+    private List<Agent> winners = new ArrayList<>();
+
+    private File directory;
+    private Stage primaryStage;
 
     private int width, height, numberOfLayers, actualNumLayer;
     private boolean addingAgents;
@@ -191,11 +197,15 @@ public class Evacuation extends Application {
         }
     }
 
-    private void setIterationButton() {
+    private void setIterationButton(Stage primaryStage) {
         iterationButton = new Button("Iterate");
-        iterationButton.setOnAction(event -> {
+        iterationButton.setOnKeyPressed(event -> {
             for(int i = 0; i < 1; ++i) {
                 iteration();
+            }
+
+            if(winners.size() + deadAgents.size() == 80){   //If 80 agents are dead or won, restart evacuation calling method
+                restart(primaryStage, directory);
             }
         });
     }
@@ -212,27 +222,44 @@ public class Evacuation extends Application {
     }
 
     private void iteration() { // need to another way
-
-        //fire.fireUpdate(map);
+        fire.fireUpdate(map);
         redrawCanvas(0);
+        int index = 999;
+        int index2 = 999;
         for(Canvas agentsCanvas : agentsCanvasList) {
             agentsCanvas.getGraphicsContext2D().clearRect(0,0, agentsCanvas.getWidth(), agentsCanvas.getHeight());
             for(List<Agent> agents : agentList) {
                 for(Agent agent : agents) {
-                    Point lookingAt = agent.panicMovement(map.getMap());
-                    //Point lookingAt = agent.lookingAt();
+                    Point lookingAt = agent.movementAlgorithm(map.getMap(), map.getMapOfWindows(), map.getMapOfDoors(), map.getMapOfSafeZones(), map.getMapOfSmoke(), map.getMapOfFire(), map.getMapOfAgents());
                     int layerIterator = agentsCanvasList.indexOf(agentsCanvas);
-                    StaticPoint point = map.getPoint(lookingAt.x, lookingAt.y, layerIterator);
-                    map.addPoint(agentsCanvasList.indexOf(agentsCanvas), agent.doAction(point));
+                    map.addPoint(agentsCanvasList.indexOf(agentsCanvas), map.getPoint(lookingAt.x, lookingAt.y, layerIterator));
                     redrawCanvas(layerIterator);
                     agentsCanvas.getGraphicsContext2D().setFill(AGENT_COLOR);
                     agentsCanvas.getGraphicsContext2D()
-                        .fillRect(
-                            agent.getActualPosition().x * TILE_SIZE,
-                            agent.getActualPosition().y * TILE_SIZE,
-                            TILE_SIZE,
-                            TILE_SIZE
-                    );
+                            .fillRect(
+                                    agent.getActualPosition().x * TILE_SIZE,
+                                    agent.getActualPosition().y * TILE_SIZE,
+                                    TILE_SIZE,
+                                    TILE_SIZE
+                            );
+                    agent.setScore(agent.getScore()+ITERATION_PUNISHMENT);
+                    if(agent.finished){
+                        index = agents.indexOf(agent);
+                        agents.get(index).setScore(agents.get(index).getScore()+FINISH_BONUS);
+                    }
+                    if(agent.health < 0){
+                        index2 = agents.indexOf(agent);
+                    }
+                }
+                if(index != 999){
+                    map.mapOfAgents[agents.get(index).actualPosition.x][agents.get(index).actualPosition.y] = false;
+                    winners.add(agents.get(index));
+                    agents.remove(index);
+                }
+                if(index2 != 999){
+                    map.mapOfAgents[agents.get(index2).actualPosition.x][agents.get(index2).actualPosition.y] = false;
+                    deadAgents.add(agents.get(index2));
+                    agents.remove(index2);
                 }
             }
             agentsCanvas.toFront();
@@ -246,7 +273,7 @@ public class Evacuation extends Application {
         setLayerListChoiceBox();
         setBackButton(primaryStage);
         setAgentCheckBox();
-        setIterationButton();
+        setIterationButton(primaryStage);
         setGridPane();
         int first = 0;
         layersCanvasList.get(first).toFront();
@@ -254,19 +281,19 @@ public class Evacuation extends Application {
         setPrimaryStage(primaryStage);
     }
 
-    private StaticPoint checker(int x, int y, Color tileColor) {
-        if(tileColor.equals(WALL_COLOR)) return new Wall(x, y);
-        else if(tileColor.equals(ROAD_COLOR)) return new Road(x, y);
-        else if(tileColor.equals(FLOOR_COLOR)) return new Floor(x, y);
-        else if(tileColor.equals(WINDOW_CLOSE_COLOR)) return new Window(x, y);
-        else if(tileColor.equals(DOOR_CLOSE_COLOR)) return new Door(x, y);
-        else if(tileColor.equals(FURNITURE_COLOR)) return new Furniture(x, y);
-        else if(tileColor.equals(UPSTAIRS_COLOR)) return new Upstairs(x, y);
-        else if(tileColor.equals(DOWNSTAIRS_COLOR)) return new Downstairs(x, y);
-        else if(tileColor.equals(SAFE_ZONE_COLOR)) return new SafeZone(x, y);
-        else if(tileColor.equals(FLAME_COLOR)) return new Flame(x, y);
-        else if(tileColor.equals(SMOKE_COLOR)) return new Flame(x, y);
-        else return new Lawn(x, y);
+    private StaticPoint checker(int x, int y, Color tileColor, CityMap map) {
+        if(tileColor.equals(WALL_COLOR)) return new Wall(x, y, map);
+        else if(tileColor.equals(ROAD_COLOR)) return new Road(x, y, map);
+        else if(tileColor.equals(FLOOR_COLOR)) return new Floor(x, y, map);
+        else if(tileColor.equals(WINDOW_CLOSE_COLOR)) return new Window(x, y, map);
+        else if(tileColor.equals(DOOR_CLOSE_COLOR)) return new Door(x, y, map);
+        else if(tileColor.equals(FURNITURE_COLOR)) return new Furniture(x, y, map);
+        else if(tileColor.equals(UPSTAIRS_COLOR)) return new Upstairs(x, y, map);
+        else if(tileColor.equals(DOWNSTAIRS_COLOR)) return new Downstairs(x, y, map);
+        else if(tileColor.equals(SAFE_ZONE_COLOR)) return new SafeZone(x, y, map);
+        else if(tileColor.equals(FLAME_COLOR)) return new Flame(x, y, map, map.getMapOfFire());
+        else if(tileColor.equals(SMOKE_COLOR)) return new Flame(x, y, map, map.getMapOfFire());
+        else return new Lawn(x, y, map);
     }
 
     private void addAllPointToMap(Image layerImage, int layer) {
@@ -274,7 +301,7 @@ public class Evacuation extends Application {
         for(int y = 0; y < this.height; ++y) {
             for(int x = 0; x < this.width; ++x) {
                 Color tileColor = pR.getColor(x, y);
-                StaticPoint toAdd = checker(x, y, tileColor);
+                StaticPoint toAdd = checker(x, y, tileColor, map);
                 map.addPoint(layer, toAdd);
             }
         }
@@ -300,14 +327,185 @@ public class Evacuation extends Application {
         }
     }
 
-    public Evacuation(Stage primaryStage, File directory) {
+    public Evacuation(Stage primaryStage, File directory){
+        this.primaryStage = primaryStage;
+        this.directory = directory;
         setupMap(directory);
         start(primaryStage);
         map.weightInit(map);
-        for(int i = 0; i < 50;i++) {
-            for (int j = 0; j < 50; j++)
-                System.out.print(map.getMap()[0][i][j].weight + " ");
-            System.out.println();
+        Random rand = new Random();
+        int x;
+        int y;
+        for(int i = 0; i < 80;i ++){
+            do{
+                x = rand.nextInt(100 - 2) + 1;
+                y = rand.nextInt(100 - 2) + 1;
+            }while(map.getPoint(x, y, actualNumLayer).getTileColor() == TileColors.SAFE_ZONE_COLOR ||map.getPoint(x, y, actualNumLayer).getTileColor() == TileColors.LAWN_COLOR || !map.getPoint(x, y, actualNumLayer).getPossibleActions().contains(WALK_IN));
+            agentList.get(actualNumLayer).add(new Agent(x, y, map.getSize()));
         }
+        iteration();
+    }
+
+    public void restart(Stage primaryStage, File directory){
+        System.out.println("Winners: " + winners.size());
+        System.out.println("Losers: " + deadAgents.size());
+        System.out.print("Survived: ");
+        System.out.printf("%.2f", (float)((float)winners.size() / (float)(winners.size() + (float)deadAgents.size()) * 100f));
+        System.out.println("%");
+        setupMap(directory);
+        start(primaryStage);
+        map.weightInit(map);
+        Random rand = new Random();
+        int x;
+        int y;
+        //GENES
+        for(int i = deadAgents.size()-1; i > 0; i--)
+            winners.add(deadAgents.get(i));
+        int yy = 1;
+        for(int i = 0; i < 80; i ++){
+            do{
+                x = rand.nextInt(100 - 2) + 1;
+                y = rand.nextInt(100 - 2) + 1;
+            }while(map.getPoint(x, y, actualNumLayer).getTileColor() == TileColors.SAFE_ZONE_COLOR ||map.getPoint(x, y, actualNumLayer).getTileColor() == TileColors.LAWN_COLOR || !map.getPoint(x, y, actualNumLayer).getPossibleActions().contains(WALK_IN));
+            int MUTATION_CHANCE = 50;
+            Genotype genotype = new Genotype();
+            Random random = new Random();
+            int gene;
+            int mutation;
+            gene = random.nextInt(4);
+            mutation = random.nextInt(MUTATION_CHANCE);
+            switch(gene){
+                case 0:
+                    genotype.calm = winners.get(yy).getGenotype().calm;
+                    break;
+                case 1:
+                    genotype.calm = winners.get((yy) + 1).getGenotype().calm;
+                    break;
+                default:
+                    genotype.calm = (winners.get(yy).getGenotype().calm + winners.get((yy) + 1).getGenotype().calm) / 2;
+                    break;
+            }
+            if(mutation == gene)
+                genotype.calm = random.nextFloat();
+
+            gene = random.nextInt(4);
+            mutation = random.nextInt(MUTATION_CHANCE);
+            switch(gene){
+                case 0:
+                    genotype.stamina = winners.get(yy).getGenotype().stamina;
+                    break;
+                case 1:
+                    genotype.stamina = winners.get((yy) + 1).getGenotype().stamina;
+                    break;
+                default:
+                    genotype.stamina = (winners.get(yy).getGenotype().stamina + winners.get((yy) + 1).getGenotype().stamina) / 2;
+                    break;
+            }
+            if(mutation == gene)
+                genotype.stamina = random.nextFloat();
+
+            gene = random.nextInt(4);
+            mutation = random.nextInt(MUTATION_CHANCE);
+            switch(gene){
+                case 0:
+                    genotype.iLikeWindows = winners.get(yy).getGenotype().iLikeWindows;
+                    break;
+                case 1:
+                    genotype.iLikeWindows = winners.get((yy) + 1).getGenotype().iLikeWindows;
+                    break;
+                default:
+                    genotype.iLikeWindows = (winners.get(yy).getGenotype().iLikeWindows + winners.get((yy) + 1).getGenotype().iLikeWindows) / 2;
+                    break;
+            }
+            if(mutation == gene)
+                genotype.iLikeWindows = random.nextFloat();
+
+            gene = random.nextInt(4);
+            mutation = random.nextInt(MUTATION_CHANCE);
+            switch(gene){
+                case 0:
+                    genotype.iLikeDoors = winners.get(yy).getGenotype().iLikeDoors;
+                    break;
+                case 1:
+                    genotype.iLikeDoors = winners.get((yy) + 1).getGenotype().iLikeDoors;
+                    break;
+                default:
+                    genotype.iLikeDoors = (winners.get(yy).getGenotype().iLikeDoors + winners.get((yy) + 1).getGenotype().iLikeDoors) / 2;
+                    break;
+            }
+            if(mutation == gene)
+                genotype.iLikeDoors = random.nextFloat();
+
+            gene = random.nextInt(4);
+            mutation = random.nextInt(MUTATION_CHANCE);
+            switch(gene){
+                case 0:
+                    genotype.iLikeSafeZone = winners.get(yy).getGenotype().iLikeSafeZone;
+                    break;
+                case 1:
+                    genotype.iLikeSafeZone = winners.get((yy) + 1).getGenotype().iLikeSafeZone;
+                    break;
+                default:
+                    genotype.iLikeSafeZone = (winners.get(yy).getGenotype().iLikeSafeZone + winners.get((yy) + 1).getGenotype().iLikeSafeZone) / 2;
+                    break;
+            }
+            if(mutation == gene)
+                genotype.iLikeSafeZone = random.nextFloat();
+
+            gene = random.nextInt(4);
+            mutation = random.nextInt(MUTATION_CHANCE);
+            switch(gene){
+                case 0:
+                    genotype.iDontLikeFire = winners.get(yy).getGenotype().iDontLikeFire;
+                    break;
+                case 1:
+                    genotype.iDontLikeFire = winners.get((yy) + 1).getGenotype().iDontLikeFire;
+                    break;
+                default:
+                    genotype.iDontLikeFire = (winners.get(yy).getGenotype().iDontLikeFire + winners.get((yy) + 1).getGenotype().iDontLikeFire) / 2;
+                    break;
+            }
+            if(mutation == gene)
+                genotype.iDontLikeFire = random.nextFloat();
+
+            gene = random.nextInt(4);
+            mutation = random.nextInt(MUTATION_CHANCE);
+            switch(gene){
+                case 0:
+                    genotype.iDontLikeSmoke = winners.get(yy).getGenotype().iDontLikeSmoke;
+                    break;
+                case 1:
+                    genotype.iDontLikeSmoke = winners.get((yy) + 1).getGenotype().iDontLikeSmoke;
+                    break;
+                default:
+                    genotype.iDontLikeSmoke = (winners.get(yy).getGenotype().iDontLikeSmoke + winners.get((yy) + 1).getGenotype().iDontLikeSmoke) / 2;
+                    break;
+            }
+            if(mutation == gene)
+                genotype.iDontLikeSmoke = random.nextFloat();
+
+            gene = random.nextInt(4);
+            mutation = random.nextInt(MUTATION_CHANCE);
+            switch(gene){
+                case 0:
+                    genotype.laziness = winners.get(yy).getGenotype().laziness;
+                    break;
+                case 1:
+                    genotype.laziness = winners.get((yy) + 1).getGenotype().laziness;
+                    break;
+                default:
+                    genotype.laziness = (winners.get(yy).getGenotype().laziness + winners.get((yy) + 1).getGenotype().laziness) / 2;
+                    break;
+            }
+            if(mutation == gene)
+                genotype.laziness = random.nextFloat();
+
+            agentList.get(actualNumLayer).add(new Agent(x, y, map.getSize(), genotype));
+            if(i != 0 && i % 3 == 0)
+                yy+=2;
+        }
+        winners = new ArrayList<>();
+        deadAgents = new ArrayList<>();
+        iteration();
     }
 }

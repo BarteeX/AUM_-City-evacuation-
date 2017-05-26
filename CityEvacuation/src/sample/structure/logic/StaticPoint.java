@@ -1,6 +1,7 @@
 package sample.structure.logic;
 
 import javafx.scene.paint.Color;
+import sample.structure.map.CityMap;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,12 +47,17 @@ public abstract class StaticPoint {
     public abstract List<ActionType> getPossibleActions();
     public abstract boolean interact();
 
-    public StaticPoint(int x, int y, float weight) {
+    public StaticPoint(int x, int y, float weight, CityMap map) {
         this.setX(x);
         this.setY(y);
         this.tileColor();
         this.actionTypeList = new ArrayList<>();
         this.setActionList();
-        this.weight = weight;
+        if(weight == Weight.SMOKE)
+            this.weight = map.getMap()[0][y][x].weight + Weight.SMOKE;
+        else if (weight == Weight.FLAME)
+            this.weight = map.getMap()[0][y][x].weight + Weight.FLAME;
+        else
+            this.weight = weight;
     }
 }

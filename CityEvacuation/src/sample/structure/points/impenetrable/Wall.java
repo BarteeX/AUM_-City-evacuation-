@@ -4,6 +4,7 @@ import sample.structure.logic.ActionType;
 import sample.structure.logic.StaticPoint;
 import sample.structure.logic.TileColors;
 import sample.structure.logic.Weight;
+import sample.structure.map.CityMap;
 
 import java.util.List;
 
@@ -31,7 +32,7 @@ public class Wall extends StaticPoint {
         return false;
     }
 
-    public Wall(int x, int y) {
-        super(x, y, Weight.wall);
+    public Wall(int x, int y, CityMap map) {
+        super(x, y, Weight.WALL, map);
     }
 }

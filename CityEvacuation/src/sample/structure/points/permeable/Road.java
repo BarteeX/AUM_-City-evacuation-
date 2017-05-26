@@ -3,6 +3,7 @@ package sample.structure.points.permeable;
 import sample.structure.logic.ActionType;
 import sample.structure.logic.StaticPoint;
 import sample.structure.logic.Weight;
+import sample.structure.map.CityMap;
 
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class Road extends StaticPoint {
         return false;
     }
 
-    public Road(int x, int y) {
-        super(x, y, Weight.road);
+    public Road(int x, int y, CityMap map) {
+        super(x, y, Weight.ROAD, map);
     }
 }

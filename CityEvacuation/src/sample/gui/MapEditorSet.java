@@ -34,7 +34,7 @@ public class MapEditorSet extends Application {
 
     private void setPrimaryStage(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        primaryStage.setTitle("City Evacuation");
+        primaryStage.setTitle("City Environment");
         primaryStage.setHeight(200);
         primaryStage.setWidth(300);
         primaryStage.setMinHeight(200);

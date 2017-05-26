@@ -3,17 +3,16 @@ package sample.structure.logic;
 /**
  * Created by Kuba on 17.05.2017.
  */
-public class Weight{
-    public static final float door = 34;
-    public static final float downstairs = 571;
-    public static final float flame = 233;
-    public static final float floor = 89;
-    public static final float lawn = 13;
-    public static final float road = 13;
-    public static final float safeZone = 0;
-    public static final float smoke = 144;
-    public static final float upstairs = 571;
-    public static final float windows = 55;
-    public static final float furniture = 571;
-    public static final float wall = 571;
+public abstract class Weight{
+    public static final float DOOR = 80;
+    public static final float FLAME = 3;
+    public static final float FLOOR = 110;
+    public static final float LAWN = 16;
+    public static final float ROAD = 13;
+    public static final float SAFE_ZONE = 0;
+    public static final float SMOKE = 2;
+    public static final float UPSTAIRS = 571;
+    public static final float WINDOW = 90;
+    public static final float FURNITURE = 571;
+    public static final float WALL = 571;
 }

@@ -3,6 +3,7 @@ package sample.structure.points.permeable;
 import sample.structure.logic.ActionType;
 import sample.structure.logic.StaticPoint;
 import sample.structure.logic.Weight;
+import sample.structure.map.CityMap;
 
 import java.util.List;
 
@@ -56,8 +57,8 @@ public class Window extends StaticPoint {
         return true;
     }
 
-    public Window(int x, int y) {
-        super(x, y, Weight.windows);
+    public Window(int x, int y, CityMap map) {
+        super(x, y, Weight.WINDOW, map);
         setClose();
     }
 }

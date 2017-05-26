@@ -34,7 +34,7 @@ public class MainWindow extends Application {
     }
 
     private void setLabels() {
-        this.nameLabel = new Label("City Evacuation");
+        this.nameLabel = new Label("City Environment");
         this.nameLabel.setAlignment(Pos.CENTER);
         this.nameLabel.setMinWidth(this.width);
         this.nameLabel.setMinHeight(this.height);
@@ -46,8 +46,8 @@ public class MainWindow extends Application {
         this.menuLabel.setTextAlignment(TextAlignment.CENTER);
     }
 
-    private void setEvacuationButton() {
-        this.evacuationButton = new Button("Evacuation");
+    private void setEvacuationButton(){
+        this.evacuationButton = new Button("Environment");
         this.evacuationButton.setAlignment(Pos.CENTER);
         this.evacuationButton.setMinWidth(this.width);
         this.evacuationButton.setMinHeight(this.height);
@@ -125,7 +125,7 @@ public class MainWindow extends Application {
     @Override
     public void start(Stage primaryStage){
         this.mainStage = primaryStage;
-        this.mainStage.setTitle("City Evacuation");
+        this.mainStage.setTitle("City Environment");
         primaryStage.setHeight(420);
         primaryStage.setWidth(130);
         primaryStage.setMinHeight(420);

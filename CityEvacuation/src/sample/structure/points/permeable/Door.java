@@ -3,6 +3,7 @@ package sample.structure.points.permeable;
 import sample.structure.logic.ActionType;
 import sample.structure.logic.StaticPoint;
 import sample.structure.logic.Weight;
+import sample.structure.map.CityMap;
 
 import java.util.List;
 
@@ -56,12 +57,12 @@ public class Door extends StaticPoint {
         return true;
     }
 
-    public Door(int x, int y) {
-        super(x, y, 1);
+    public Door(int x, int y, CityMap map) {
+        super(x, y, 0, map);
     }
 
-    public Door(int x, int y, boolean isOpen) {
-        super(x, y, Weight.door);
+    public Door(int x, int y, boolean isOpen, CityMap map) {
+        super(x, y, Weight.DOOR, map);
         if (isOpen) {
             setOpen();
         } else {

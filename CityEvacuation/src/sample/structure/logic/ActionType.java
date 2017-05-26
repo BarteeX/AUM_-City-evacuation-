@@ -6,5 +6,4 @@ public enum ActionType {
     OPEN,
     CLOSE,
     MOVE_IT,
-    BURN
 }

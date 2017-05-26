@@ -4,6 +4,7 @@ import sample.structure.logic.ActionType;
 import sample.structure.logic.StaticPoint;
 import sample.structure.logic.TileColors;
 import sample.structure.logic.Weight;
+import sample.structure.map.CityMap;
 
 import java.util.List;
 
@@ -12,13 +13,9 @@ import java.util.List;
  */
 public class Flame extends StaticPoint {
 
-    public Flame(int x, int y) {
-        super(x, y, Weight.flame);
-    }
-
-    @Override
-    public void setActionList() {
-        actionTypeList.add(ActionType.BURN);
+    public Flame(int x, int y, CityMap map, float [][] mapOfFire) {
+        super(x, y, Weight.FLAME, map);
+        mapOfFire[x][y] = 5;
     }
 
     @Override
@@ -27,13 +24,19 @@ public class Flame extends StaticPoint {
     }
 
     @Override
-    public boolean interact() {
-        return true;
+    public void setActionList() {
+        actionTypeList.add(ActionType.NONE);
+        actionTypeList.add(ActionType.WALK_IN);
     }
 
     @Override
     public List<ActionType> getPossibleActions() {
-        return null;
+        return super.actionTypeList;
+    }
+
+    @Override
+    public boolean interact() {
+        return false;
     }
 
 }
