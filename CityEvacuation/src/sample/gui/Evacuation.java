@@ -51,6 +51,7 @@ public class Evacuation extends Application {
     private static final int ITERATION_PUNISHMENT = -1;
     private List<Agent> deadAgents = new ArrayList<>();
     private List<Agent> winners = new ArrayList<>();
+    private boolean isRestart = false;
 
     private File directory;
     private Stage primaryStage;
@@ -113,9 +114,9 @@ public class Evacuation extends Application {
     }
 
     private void setSpeedSlider() {
-        speedSlider = new Slider(100, 2000, 20);
+        speedSlider = new Slider(0, 2000, 20);
         speedSlider.setPrefWidth(80);
-        speedSlider.setValue(1000);
+        speedSlider.setValue(0);
     }
 
     private GridPane rightBar() {
@@ -215,6 +216,12 @@ public class Evacuation extends Application {
                 iteration();
                 redrawCanvas(actualNumLayer);
                 try {
+                    if(winners.size() + deadAgents.size() == 80 && !isRestart){   //If 80 agents are dead or won, restart evacuation calling method
+                        isRestart = true;
+                        restart(primaryStage, directory);
+                        Thread.sleep(100);
+                        isRestart = false;
+                    }
                     Thread.sleep(((int) speedSlider.getValue()));
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -229,9 +236,7 @@ public class Evacuation extends Application {
             }
             animationStarted = !animationStarted;
 
-            if(winners.size() + deadAgents.size() == 80){   //If 80 agents are dead or won, restart evacuation calling method
-                restart(primaryStage, directory);
-            }
+
         });
     }
 
@@ -544,7 +549,7 @@ public class Evacuation extends Application {
                 genotype.laziness = random.nextFloat();
 
             agentList.get(actualNumLayer).add(new Agent(x, y, map.getSize(), genotype));
-            if(i != 0 && i % 3 == 0)
+            if(i != 0 && i % 4 == 0)
                 yy+=2;
         }
         winners = new ArrayList<>();
