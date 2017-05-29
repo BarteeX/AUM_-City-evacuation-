@@ -303,52 +303,7 @@ public class Evacuation extends Application {
             agentsCanvas.toFront();
         }
     }
-/*
-    private void iteration() { // need to another way
-        fire.fireUpdate(map);
-        redrawCanvas(0);
-        int index = 999;
-        int index2 = 999;
-        for(Canvas agentsCanvas : agentsCanvasList) {
-            agentsCanvas.getGraphicsContext2D().clearRect(0,0, agentsCanvas.getWidth(), agentsCanvas.getHeight());
-            for(List<Agent> agents : agentList) {
-                for(Agent agent : agents) {
-                    Point lookingAt = agent.movementAlgorithm(map.getMap(), map.getMapOfWindows(), map.getMapOfDoors(), map.getMapOfSafeZones(), map.getMapOfSmoke(), map.getMapOfFire(), map.getMapOfAgents());
-                    int layerIterator = agentsCanvasList.indexOf(agentsCanvas);
-                    map.addPoint(agentsCanvasList.indexOf(agentsCanvas), map.getPoint(lookingAt.x, lookingAt.y, layerIterator));
-                    redrawCanvas(layerIterator);
-                    agentsCanvas.getGraphicsContext2D().setFill(AGENT_COLOR);
-                    agentsCanvas.getGraphicsContext2D()
-                            .fillRect(
-                                    agent.getActualPosition().x * TILE_SIZE,
-                                    agent.getActualPosition().y * TILE_SIZE,
-                                    TILE_SIZE,
-                                    TILE_SIZE
-                            );
-                    agent.setScore(agent.getScore()+ITERATION_PUNISHMENT);
-                    if(agent.finished){
-                        index = agents.indexOf(agent);
-                        agents.get(index).setScore(agents.get(index).getScore()+FINISH_BONUS);
-                    }
-                    if(agent.health < 0){
-                        index2 = agents.indexOf(agent);
-                    }
-                }
-                if(index != 999){
-                    map.mapOfAgents[agents.get(index).actualPosition.x][agents.get(index).actualPosition.y] = false;
-                    winners.add(agents.get(index));
-                    agents.remove(index);
-                }
-                if(index2 != 999){
-                    map.mapOfAgents[agents.get(index2).actualPosition.x][agents.get(index2).actualPosition.y] = false;
-                    deadAgents.add(agents.get(index2));
-                    agents.remove(index2);
-                }
-            }
-            agentsCanvas.toFront();
-        }
-    }
-*/
+
     @Override
     public void start(Stage primaryStage) {
         initVar();
