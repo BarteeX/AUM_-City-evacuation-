@@ -18,5 +18,5 @@ public class TileColors {
     public static Color AGENT_COLOR = Color.DARKCYAN;
     public static Color FLAME_COLOR = Color.RED;
     public static Color SMOKE_COLOR = Color.DARKGRAY;
-    public static int TILE_SIZE = 10;
+    public static int TILE_SIZE = 8;
 }

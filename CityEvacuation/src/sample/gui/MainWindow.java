@@ -53,7 +53,7 @@ public class MainWindow extends Application {
         this.evacuationButton.setMinHeight(this.height);
         this.evacuationButton.setOnMousePressed(event ->{
             DirectoryChooser dC = new DirectoryChooser();
-            dC.setInitialDirectory(new File("C:\\Users\\" + System.getProperty("user.name") + "\\Desktop"));
+            dC.setInitialDirectory(new File("C:\\Users\\" + System.getProperty("user.name") + "\\IdeaProjects\\AUM_-City-evacuation-"));
             File directory = dC.showDialog(mainStage);
             if(directory != null) {
                 new Evacuation(mainStage, directory);

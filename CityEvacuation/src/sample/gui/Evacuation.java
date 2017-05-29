@@ -1,14 +1,14 @@
 package sample.gui;
 
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.geometry.*;
 import javafx.geometry.Insets;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
+import javafx.scene.control.*;
 import javafx.scene.Scene;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
@@ -40,6 +40,7 @@ public class Evacuation extends Application {
     private GridPane gridPane;
     private Button backButton;
     private Button iterationButton;
+    private Slider speedSlider;
     private List<Canvas> layersCanvasList;
     private List<Canvas> agentsCanvasList;
     private CheckBox agentCheckbox;
@@ -55,7 +56,7 @@ public class Evacuation extends Application {
     private Stage primaryStage;
 
     private int width, height, numberOfLayers, actualNumLayer;
-    private boolean addingAgents;
+    private boolean addingAgents, animationStarted = false;
     private List<List<Agent>> agentList;
 
     private void initVar() {
@@ -111,6 +112,12 @@ public class Evacuation extends Application {
         });
     }
 
+    private void setSpeedSlider() {
+        speedSlider = new Slider(100, 2000, 20);
+        speedSlider.setPrefWidth(80);
+        speedSlider.setValue(1000);
+    }
+
     private GridPane rightBar() {
         GridPane gridPane = new GridPane();
         gridPane.add(new Label("Adding: "), 0, 0);
@@ -119,28 +126,31 @@ public class Evacuation extends Application {
         gridPane.add(layerListChoiceBox, 1, 1);
         gridPane.add(iterationButton, 0, 2);
         gridPane.add(backButton, 1, 2);
-        gridPane.add(new Label("Legend"), 0, 3, 2, 1);
-        gridPane.add(new Label("Wall: "), 0, 4);
+        gridPane.add(new Label("Speed: "), 0, 3);
+        gridPane.add(speedSlider, 1, 3);
+
+        gridPane.add(new Label("Legend"), 0, 5, 2, 1);
+        gridPane.add(new Label("Wall: "), 0, 6);
         gridPane.add(new Rectangle(20, 20, WALL_COLOR), 1, 4);
-        gridPane.add(new Label("Road: "), 0, 5);
+        gridPane.add(new Label("Road: "), 0, 7);
         gridPane.add(new Rectangle(20, 20, ROAD_COLOR), 1, 5);
-        gridPane.add(new Label("Floor: "), 0, 6);
+        gridPane.add(new Label("Floor: "), 0, 8);
         gridPane.add(new Rectangle(20, 20, FLOOR_COLOR), 1, 6);
-        gridPane.add(new Label("Window(close): "), 0, 7);
+        gridPane.add(new Label("Window(close): "), 0, 9);
         gridPane.add(new Rectangle(20, 20, WINDOW_CLOSE_COLOR), 1, 7);
-        gridPane.add(new Label("Window(open): "), 0, 8);
+        gridPane.add(new Label("Window(open): "), 0, 10);
         gridPane.add(new Rectangle(20, 20, WINDOW_OPEN_COLOR), 1, 8);
-        gridPane.add(new Label("Door(open): "), 0, 9);
+        gridPane.add(new Label("Door(open): "), 0, 11);
         gridPane.add(new Rectangle(20, 20, DOOR_OPEN_COLOR), 1, 9);
-        gridPane.add(new Label("Door(close): "), 0, 10);
+        gridPane.add(new Label("Door(close): "), 0, 12);
         gridPane.add(new Rectangle(20, 20, DOOR_CLOSE_COLOR), 1, 10);
-        gridPane.add(new Label("Furniture: "), 0, 11);
+        gridPane.add(new Label("Furniture: "), 0, 13);
         gridPane.add(new Rectangle(20, 20, FURNITURE_COLOR), 1, 11);
-        gridPane.add(new Label("Upstairs: "), 0, 12);
+        gridPane.add(new Label("Upstairs: "), 0, 14);
         gridPane.add(new Rectangle(20, 20, UPSTAIRS_COLOR), 1, 12);
-        gridPane.add(new Label("Downstairs: "), 0, 13);
+        gridPane.add(new Label("Downstairs: "), 0, 15);
         gridPane.add(new Rectangle(20, 20, DOWNSTAIRS_COLOR), 1, 13);
-        gridPane.add(new Label("SafeZone: "), 0, 14);
+        gridPane.add(new Label("SafeZone: "), 0, 16);
         gridPane.add(new Rectangle(20, 20, SAFE_ZONE_COLOR), 1, 14);
         gridPane.setAlignment(Pos.CENTER);
         gridPane.setPadding(new Insets(15, 15, 15, 15));
@@ -199,10 +209,25 @@ public class Evacuation extends Application {
 
     private void setIterationButton(Stage primaryStage) {
         iterationButton = new Button("Iterate");
-        iterationButton.setOnKeyPressed(event -> {
-            for(int i = 0; i < 1; ++i) {
+        AnimationTimer aT = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
                 iteration();
+                redrawCanvas(actualNumLayer);
+                try {
+                    Thread.sleep(((int) speedSlider.getValue()));
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
+        };
+        iterationButton.setOnAction(event -> {
+            if(animationStarted) {
+                aT.stop();
+            } else {
+                aT.start();
+            }
+            animationStarted = !animationStarted;
 
             if(winners.size() + deadAgents.size() == 80){   //If 80 agents are dead or won, restart evacuation calling method
                 restart(primaryStage, directory);
@@ -221,6 +246,64 @@ public class Evacuation extends Application {
         }
     }
 
+    private void iteration() { // need to another way
+        fire.fireUpdate(map);
+        int index = 999;
+        int index2 = 999;
+        for(Canvas agentsCanvas : agentsCanvasList) {
+            agentsCanvas.getGraphicsContext2D().clearRect(0,0, agentsCanvas.getWidth(), agentsCanvas.getHeight());
+            for(List<Agent> agents : agentList) {
+                for(Agent agent : agents) {
+                    Point lookingAt = agent.movementAlgorithm(
+                            map.getMap(),
+                            map.getMapOfWindows(),
+                            map.getMapOfDoors(),
+                            map.getMapOfSafeZones(),
+                            map.getMapOfSmoke(),
+                            map.getMapOfFire(),
+                            map.getMapOfAgents()
+                    );
+                    int layerIterator = agentsCanvasList.indexOf(agentsCanvas);
+                    map.addPoint(
+                            agentsCanvasList.indexOf(agentsCanvas),
+                            map.getPoint(
+                                    lookingAt.x,
+                                    lookingAt.y,
+                                    layerIterator
+                            )
+                    );
+                    agentsCanvas.getGraphicsContext2D().setFill(AGENT_COLOR);
+                    agentsCanvas.getGraphicsContext2D()
+                            .fillRect(
+                                    agent.getActualPosition().x * TILE_SIZE,
+                                    agent.getActualPosition().y * TILE_SIZE,
+                                    TILE_SIZE,
+                                    TILE_SIZE
+                            );
+                    agent.setScore(agent.getScore()+ITERATION_PUNISHMENT);
+                    if(agent.finished){
+                        index = agents.indexOf(agent);
+                        agents.get(index).setScore(agents.get(index).getScore()+FINISH_BONUS);
+                    }
+                    if(agent.health < 0){
+                        index2 = agents.indexOf(agent);
+                    }
+                }
+                if(index != 999){
+                    map.mapOfAgents[agents.get(index).actualPosition.x][agents.get(index).actualPosition.y] = false;
+                    winners.add(agents.get(index));
+                    agents.remove(index);
+                }
+                if(index2 != 999){
+                    map.mapOfAgents[agents.get(index2).actualPosition.x][agents.get(index2).actualPosition.y] = false;
+                    deadAgents.add(agents.get(index2));
+                    agents.remove(index2);
+                }
+            }
+            agentsCanvas.toFront();
+        }
+    }
+/*
     private void iteration() { // need to another way
         fire.fireUpdate(map);
         redrawCanvas(0);
@@ -265,11 +348,12 @@ public class Evacuation extends Application {
             agentsCanvas.toFront();
         }
     }
-
+*/
     @Override
     public void start(Stage primaryStage) {
         initVar();
         drawCanvas();
+        setSpeedSlider();
         setLayerListChoiceBox();
         setBackButton(primaryStage);
         setAgentCheckBox();
@@ -340,7 +424,11 @@ public class Evacuation extends Application {
             do{
                 x = rand.nextInt(100 - 2) + 1;
                 y = rand.nextInt(100 - 2) + 1;
-            }while(map.getPoint(x, y, actualNumLayer).getTileColor() == TileColors.SAFE_ZONE_COLOR ||map.getPoint(x, y, actualNumLayer).getTileColor() == TileColors.LAWN_COLOR || !map.getPoint(x, y, actualNumLayer).getPossibleActions().contains(WALK_IN));
+            }while(
+                    map.getPoint(x, y, actualNumLayer).getTileColor() == TileColors.SAFE_ZONE_COLOR ||
+                    map.getPoint(x, y, actualNumLayer).getTileColor() == TileColors.LAWN_COLOR ||
+                    !map.getPoint(x, y, actualNumLayer).getPossibleActions().contains(WALK_IN)
+                    );
             agentList.get(actualNumLayer).add(new Agent(x, y, map.getSize()));
         }
         iteration();
