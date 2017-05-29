@@ -6,6 +6,9 @@ import javafx.geometry.*;
 import javafx.geometry.Insets;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -44,7 +47,7 @@ public class Evacuation extends Application {
     private List<Canvas> layersCanvasList;
     private List<Canvas> agentsCanvasList;
     private CheckBox agentCheckbox;
-    private ChoiceBox layerListChoiceBox;
+    private ChoiceBox<String> layerListChoiceBox;
     private CityMap map;
     private Fire fire;
     private static final int FINISH_BONUS = 1000;
@@ -52,9 +55,24 @@ public class Evacuation extends Application {
     private List<Agent> deadAgents = new ArrayList<>();
     private List<Agent> winners = new ArrayList<>();
     private boolean isRestart = false;
-
+    private AnimationTimer aT;
+    private int iterationCounter = 1;
     private File directory;
-    private Stage primaryStage;
+    private int evacuated, died;
+    private float statistic;
+
+    private XYChart.Series series;
+    private LineChart<Number, Number> lineChart;
+
+    private Label iterationLabel;
+    private Label winnerLabel;
+    private Label losesLabel;
+    private Label evacuatedPercent;
+    private Label iterationCounterLabel;
+    private Label winnerCounterLabel;
+    private Label losesCounterLabel;
+    private Label evacuatedCounterPercent;
+
 
     private int width, height, numberOfLayers, actualNumLayer;
     private boolean addingAgents, animationStarted = false;
@@ -64,7 +82,7 @@ public class Evacuation extends Application {
         gridPane = new GridPane();
         layersCanvasList = new ArrayList<>();
         agentsCanvasList = new ArrayList<>();
-        layerListChoiceBox = new ChoiceBox();
+        layerListChoiceBox = new ChoiceBox<>();
         agentList = new ArrayList<>();
         for(int layer = 0; layer < numberOfLayers; ++layer) {
             agentList.add(new ArrayList<>());
@@ -119,6 +137,59 @@ public class Evacuation extends Application {
         speedSlider.setValue(0);
     }
 
+    private void setStatisticLabels() {
+        iterationLabel = new Label("Iteration: ");
+        winnerLabel = new Label("Evacuated: ");
+        losesLabel = new Label("Died: ");
+        evacuatedPercent = new Label("Efficiency: ");
+
+        iterationCounterLabel = new Label(iterationCounter + "");
+        winnerCounterLabel = new Label(evacuated + "");
+        losesCounterLabel = new Label(died + "");
+        evacuatedCounterPercent = new Label((float)((int)(statistic*100))/100 + "%");
+    }
+
+    private void setLineChart() {
+        NumberAxis xAxis = new NumberAxis();
+        NumberAxis yAxis = new NumberAxis();
+        xAxis.setLabel("Number of Iteration");
+        lineChart = new LineChart<>(xAxis, yAxis);
+
+        series = new XYChart.Series();
+        series.setName("Efficiency");
+
+        //lineChart.getData().add(series);
+        //lineChart.setScaleX(0.05);
+        //lineChart.setScaleY(0.05);
+        lineChart.setMaxSize(100, 100);
+    }
+
+    private void updateLineChart() {
+        series.getData().add(new XYChart.Data<>(iterationCounter, statistic));
+        lineChart.getData().add(series);
+    }
+
+    private GridPane statisticGrid() {
+        GridPane statisticGrid = new GridPane();
+
+        statisticGrid.add(iterationLabel, 0 ,0);
+        statisticGrid.add(iterationCounterLabel, 1 ,0);
+        statisticGrid.add(winnerLabel, 0 ,1);
+        statisticGrid.add(winnerCounterLabel, 1 ,1);
+        statisticGrid.add(losesLabel, 0 ,2);
+        statisticGrid.add(losesCounterLabel, 1 ,2);
+        statisticGrid.add(evacuatedPercent, 0 ,3);
+        statisticGrid.add(evacuatedCounterPercent, 1 ,3);
+        statisticGrid.add(lineChart, 0, 4, 2, 4);
+        statisticGrid.setAlignment(Pos.CENTER);
+        statisticGrid.setPadding(new Insets(15, 15, 15, 15));
+        statisticGrid.setHgap(5);
+        statisticGrid.setVgap(5);
+        statisticGrid.setStyle("-fx-border-color: black; -fx-border-radius: 2; -fx-font-size : 15px;");
+
+        return statisticGrid;
+    }
+
     private GridPane rightBar() {
         GridPane gridPane = new GridPane();
         gridPane.add(new Label("Adding: "), 0, 0);
@@ -132,27 +203,23 @@ public class Evacuation extends Application {
 
         gridPane.add(new Label("Legend"), 0, 5, 2, 1);
         gridPane.add(new Label("Wall: "), 0, 6);
-        gridPane.add(new Rectangle(20, 20, WALL_COLOR), 1, 4);
-        gridPane.add(new Label("Road: "), 0, 7);
-        gridPane.add(new Rectangle(20, 20, ROAD_COLOR), 1, 5);
+        gridPane.add(new Rectangle(20, 20, WALL_COLOR), 1, 6);
+        gridPane.add(new Label("Lawn: "), 0, 7);
+        gridPane.add(new Rectangle(20, 20, LAWN_COLOR), 1, 7);
         gridPane.add(new Label("Floor: "), 0, 8);
-        gridPane.add(new Rectangle(20, 20, FLOOR_COLOR), 1, 6);
+        gridPane.add(new Rectangle(20, 20, FLOOR_COLOR), 1, 8);
         gridPane.add(new Label("Window(close): "), 0, 9);
-        gridPane.add(new Rectangle(20, 20, WINDOW_CLOSE_COLOR), 1, 7);
+        gridPane.add(new Rectangle(20, 20, WINDOW_CLOSE_COLOR), 1, 9);
         gridPane.add(new Label("Window(open): "), 0, 10);
-        gridPane.add(new Rectangle(20, 20, WINDOW_OPEN_COLOR), 1, 8);
+        gridPane.add(new Rectangle(20, 20, WINDOW_OPEN_COLOR), 1, 10);
         gridPane.add(new Label("Door(open): "), 0, 11);
-        gridPane.add(new Rectangle(20, 20, DOOR_OPEN_COLOR), 1, 9);
+        gridPane.add(new Rectangle(20, 20, DOOR_OPEN_COLOR), 1, 11);
         gridPane.add(new Label("Door(close): "), 0, 12);
-        gridPane.add(new Rectangle(20, 20, DOOR_CLOSE_COLOR), 1, 10);
-        gridPane.add(new Label("Furniture: "), 0, 13);
-        gridPane.add(new Rectangle(20, 20, FURNITURE_COLOR), 1, 11);
-        gridPane.add(new Label("Upstairs: "), 0, 14);
-        gridPane.add(new Rectangle(20, 20, UPSTAIRS_COLOR), 1, 12);
-        gridPane.add(new Label("Downstairs: "), 0, 15);
-        gridPane.add(new Rectangle(20, 20, DOWNSTAIRS_COLOR), 1, 13);
-        gridPane.add(new Label("SafeZone: "), 0, 16);
-        gridPane.add(new Rectangle(20, 20, SAFE_ZONE_COLOR), 1, 14);
+        gridPane.add(new Rectangle(20, 20, DOOR_CLOSE_COLOR), 1, 12);
+        gridPane.add(new Label("SafeZone: "), 0, 13);
+        gridPane.add(new Rectangle(20, 20, SAFE_ZONE_COLOR), 1, 13);
+        gridPane.add(statisticGrid(), 0, 14, 2, 4);
+
         gridPane.setAlignment(Pos.CENTER);
         gridPane.setPadding(new Insets(15, 15, 15, 15));
         gridPane.setHgap(5);
@@ -177,7 +244,10 @@ public class Evacuation extends Application {
 
     private void setBackButton(Stage primaryStage) {
         backButton = new Button("Back");
-        backButton.setOnAction(event -> new MainWindow(primaryStage));
+        backButton.setOnAction(event -> {
+            aT.stop();
+            new MainWindow(primaryStage);
+        });
     }
 
     private void setAgentCheckBox() {
@@ -208,21 +278,31 @@ public class Evacuation extends Application {
         }
     }
 
-    private void setIterationButton(Stage primaryStage) {
+    private void updateLabels() {
+        iterationCounterLabel.setText(iterationCounter + "");
+        winnerCounterLabel.setText(evacuated + "");
+        losesCounterLabel.setText(died + "");
+        evacuatedCounterPercent.setText(((int)statistic*100)/100 + "%");
+    }
+
+    private void setIterationButton() {
         iterationButton = new Button("Iterate");
-        AnimationTimer aT = new AnimationTimer() {
+        aT = new AnimationTimer() {
             @Override
             public void handle(long now) {
                 iteration();
                 redrawCanvas(actualNumLayer);
+                updateLabels();
                 try {
                     if(winners.size() + deadAgents.size() == 80 && !isRestart){   //If 80 agents are dead or won, restart evacuation calling method
                         isRestart = true;
-                        restart(primaryStage, directory);
+                        updateLineChart();
+                        restart(directory);
                         Thread.sleep(100);
                         isRestart = false;
+                        iterationCounter++;
                     }
-                    Thread.sleep(((int) speedSlider.getValue()));
+                    Thread.sleep(2000 - ((int) speedSlider.getValue()));
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -231,12 +311,11 @@ public class Evacuation extends Application {
         iterationButton.setOnAction(event -> {
             if(animationStarted) {
                 aT.stop();
+                animationStarted = false;
             } else {
                 aT.start();
+                animationStarted = true;
             }
-            animationStarted = !animationStarted;
-
-
         });
     }
 
@@ -252,6 +331,10 @@ public class Evacuation extends Application {
     }
 
     private void iteration() { // need to another way
+        evacuated = winners.size();
+        died = deadAgents.size();
+        statistic = ((float)evacuated /(evacuated + (float)died) * 100f);
+
         fire.fireUpdate(map);
         int index = 999;
         int index2 = 999;
@@ -313,11 +396,13 @@ public class Evacuation extends Application {
     public void start(Stage primaryStage) {
         initVar();
         drawCanvas();
+        setStatisticLabels();
         setSpeedSlider();
+        setLineChart();
         setLayerListChoiceBox();
         setBackButton(primaryStage);
         setAgentCheckBox();
-        setIterationButton(primaryStage);
+        setIterationButton();
         setGridPane();
         int first = 0;
         layersCanvasList.get(first).toFront();
@@ -372,7 +457,6 @@ public class Evacuation extends Application {
     }
 
     public Evacuation(Stage primaryStage, File directory){
-        this.primaryStage = primaryStage;
         this.directory = directory;
         setupMap(directory);
         start(primaryStage);
@@ -394,14 +478,8 @@ public class Evacuation extends Application {
         iteration();
     }
 
-    public void restart(Stage primaryStage, File directory){
-        System.out.println("Winners: " + winners.size());
-        System.out.println("Losers: " + deadAgents.size());
-        System.out.print("Survived: ");
-        System.out.printf("%.2f", (float)((float)winners.size() / (float)(winners.size() + (float)deadAgents.size()) * 100f));
-        System.out.println("%");
+    private void restart(File directory){
         setupMap(directory);
-        start(primaryStage);
         map.weightInit(map);
         Random rand = new Random();
         int x;
