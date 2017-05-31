@@ -5,10 +5,13 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
@@ -24,7 +27,6 @@ public class MainWindow extends Application {
 
     private Label nameLabel, menuLabel;
     private Button  evacuationButton, mapButton,
-                    agentButton, settingsButton,
                     aboutButton, exitButton;
 
 
@@ -69,22 +71,24 @@ public class MainWindow extends Application {
         this.mapButton.setOnMouseClicked(event -> new MapEditorSet(mainStage));
     }
 
-    private void setAgentButton() {
-        this.agentButton = new Button("Train Agents");
-        this.agentButton.setAlignment(Pos.CENTER);
-        this.agentButton.setMinWidth(this.width);
-        this.agentButton.setMinHeight(this.height);
-    }
-
-    private void setSettingsButton() {
-        this.settingsButton = new Button("Train Settings");
-        this.settingsButton.setAlignment(Pos.CENTER);
-        this.settingsButton.setMinWidth(this.width);
-        this.settingsButton.setMinHeight(this.height);
-    }
-
     private void setAboutButton() {
+        WebView browser = new WebView();
+        WebEngine webEngine = browser.getEngine();
+
         this.aboutButton = new Button("About");
+        this.aboutButton.setOnAction(event -> {
+            Application about = new Application(){
+                @Override
+                public void start(Stage primaryStage) throws Exception {
+                    primaryStage.setScene(new Scene(browser));
+                    primaryStage.setWidth(browser.getWidth());
+                    primaryStage.setHeight(browser.getHeight());
+                    webEngine.load("https://drive.google.com/file/d/0B3THBykTbnecOUlLT0hPZk10VTg/view");
+                    primaryStage.show();
+                }
+            };
+            //about.start(new Stage());
+        });
         this.aboutButton.setAlignment(Pos.CENTER);
         this.aboutButton.setMinWidth(this.width);
         this.aboutButton.setMinHeight(this.height);
@@ -115,10 +119,8 @@ public class MainWindow extends Application {
     private void addButtonsToGrid() {
         this.gridPane.add(this.evacuationButton, 0 ,2);
         this.gridPane.add(this.mapButton, 0 ,3);
-        this.gridPane.add(this.agentButton, 0 ,4);
-        this.gridPane.add(this.settingsButton, 0 ,5);
-        this.gridPane.add(this.aboutButton, 0 ,6);
-        this.gridPane.add(this.exitButton, 0 ,7);
+        this.gridPane.add(this.aboutButton, 0 ,4);
+        this.gridPane.add(this.exitButton, 0 ,5);
     }
 
 
@@ -137,8 +139,6 @@ public class MainWindow extends Application {
         setButtonsSize(width, height);
         setEvacuationButton();
         setMapButton();
-        setAgentButton();
-        setSettingsButton();
         setAboutButton();
         setExitButton();
 

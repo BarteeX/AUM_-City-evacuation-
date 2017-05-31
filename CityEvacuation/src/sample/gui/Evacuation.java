@@ -96,7 +96,7 @@ public class Evacuation extends Application {
         primaryStage.show();
         primaryStage.setMinWidth(this.width*TILE_SIZE + 250);
         primaryStage.setMinHeight(this.height*TILE_SIZE + 60);
-        primaryStage.setWidth(this.width*TILE_SIZE + 250);
+        primaryStage.setWidth(this.width*TILE_SIZE + 280);
         primaryStage.setHeight(this.height*TILE_SIZE + 60);
         primaryStage.setScene(new Scene(gridPane));
     }
@@ -154,13 +154,7 @@ public class Evacuation extends Application {
         NumberAxis yAxis = new NumberAxis();
         xAxis.setLabel("Number of Iteration");
         lineChart = new LineChart<>(xAxis, yAxis);
-
         series = new XYChart.Series();
-        series.setName("Efficiency");
-
-        //lineChart.getData().add(series);
-        //lineChart.setScaleX(0.05);
-        //lineChart.setScaleY(0.05);
         lineChart.setMaxSize(100, 100);
     }
 
@@ -470,8 +464,8 @@ public class Evacuation extends Application {
                 y = rand.nextInt(100 - 2) + 1;
             }while(
                     map.getPoint(x, y, actualNumLayer).getTileColor() == TileColors.SAFE_ZONE_COLOR ||
-                    map.getPoint(x, y, actualNumLayer).getTileColor() == TileColors.LAWN_COLOR ||
-                    !map.getPoint(x, y, actualNumLayer).getPossibleActions().contains(WALK_IN)
+                            map.getPoint(x, y, actualNumLayer).getTileColor() == TileColors.LAWN_COLOR ||
+                            !map.getPoint(x, y, actualNumLayer).getPossibleActions().contains(WALK_IN)
                     );
             agentList.get(actualNumLayer).add(new Agent(x, y, map.getSize()));
         }
@@ -492,7 +486,11 @@ public class Evacuation extends Application {
             do{
                 x = rand.nextInt(100 - 2) + 1;
                 y = rand.nextInt(100 - 2) + 1;
-            }while(map.getPoint(x, y, actualNumLayer).getTileColor() == TileColors.SAFE_ZONE_COLOR ||map.getPoint(x, y, actualNumLayer).getTileColor() == TileColors.LAWN_COLOR || !map.getPoint(x, y, actualNumLayer).getPossibleActions().contains(WALK_IN));
+            }while(
+                    map.getPoint(x, y, actualNumLayer).getTileColor() == TileColors.SAFE_ZONE_COLOR ||
+                    map.getPoint(x, y, actualNumLayer).getTileColor() == TileColors.LAWN_COLOR ||
+                    !map.getPoint(x, y, actualNumLayer).getPossibleActions().contains(WALK_IN)
+                    );
             int MUTATION_CHANCE = 50;
             Genotype genotype = new Genotype();
             Random random = new Random();
