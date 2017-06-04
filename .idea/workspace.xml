@@ -2,10 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="658ef727-4d0c-4730-8836-22abfea35e80" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/CityEvacuation/src/sample/gui/About.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CityEvacuation/src/sample/gui/Evacuation.java" afterPath="$PROJECT_DIR$/CityEvacuation/src/sample/gui/Evacuation.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CityEvacuation/src/sample/gui/Main.java" afterPath="$PROJECT_DIR$/CityEvacuation/src/sample/gui/Main.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CityEvacuation/src/sample/gui/MainWindow.java" afterPath="$PROJECT_DIR$/CityEvacuation/src/sample/gui/MainWindow.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CityEvacuation/src/sample/structure/logic/Agent.java" afterPath="$PROJECT_DIR$/CityEvacuation/src/sample/structure/logic/Agent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CityEvacuation/src/sample/structure/logic/Genotype.java" afterPath="$PROJECT_DIR$/CityEvacuation/src/sample/structure/logic/Genotype.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -18,85 +20,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CityEvacuation/src/sample/gui/Main.java">
+      <file leaf-file-name="About.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/CityEvacuation/src/sample/gui/About.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="12" column="38" lean-forward="false" selection-start-line="12" selection-start-column="38" selection-end-line="12" selection-end-column="38" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Evacuation.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CityEvacuation/src/sample/gui/Evacuation.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1870">
-              <caret line="165" column="38" lean-forward="false" selection-start-line="165" selection-start-column="38" selection-end-line="165" selection-end-column="38" />
-              <folding>
-                <element signature="method#drawCanvas#0;class#Evacuation#0" expanded="false" />
-                <element signature="method#setSpeedSlider#0;class#Evacuation#0" expanded="false" />
-                <element signature="method#setGridPane#0;class#Evacuation#0" expanded="false" />
-                <element signature="method#setBackButton#0;class#Evacuation#0" expanded="false" />
-                <element signature="method#setAgentCheckBox#0;class#Evacuation#0" expanded="false" />
-                <element signature="method#redrawCanvas#0;class#Evacuation#0" expanded="false" />
-                <element signature="method#checker#0;class#Evacuation#0" expanded="false" />
-                <element signature="method#addAllPointToMap#0;class#Evacuation#0" expanded="false" />
-                <element signature="method#initMap#0;class#Evacuation#0" expanded="false" />
-                <element signature="method#setupMap#0;class#Evacuation#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="StaticPoint.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CityEvacuation/src/sample/structure/logic/StaticPoint.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="8" column="34" lean-forward="false" selection-start-line="8" selection-start-column="34" selection-end-line="8" selection-end-column="34" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CityMap.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CityEvacuation/src/sample/structure/map/CityMap.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="55" column="5" lean-forward="true" selection-start-line="55" selection-start-column="5" selection-end-line="55" selection-end-column="5" />
-              <folding>
-                <element signature="e#1359#1360#0" expanded="true" />
-                <element signature="e#1392#1393#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Genotype.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/CityEvacuation/src/sample/structure/logic/Genotype.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="16" column="23" lean-forward="false" selection-start-line="16" selection-start-column="23" selection-end-line="16" selection-end-column="23" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Fire.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CityEvacuation/src/sample/structure/map/Fire.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="14" column="13" lean-forward="false" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Downstairs.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CityEvacuation/src/sample/structure/points/permeable/Downstairs.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+            <state relative-caret-position="51">
+              <caret line="3" column="26" lean-forward="false" selection-start-line="3" selection-start-column="26" selection-end-line="3" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -105,24 +33,21 @@
       <file leaf-file-name="MainWindow.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CityEvacuation/src/sample/gui/MainWindow.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1258">
-              <caret line="89" column="14" lean-forward="false" selection-start-line="89" selection-start-column="14" selection-end-line="89" selection-end-column="14" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MapEditor.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CityEvacuation/src/sample/gui/MapEditor.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="52" column="30" lean-forward="false" selection-start-line="52" selection-start-column="30" selection-end-line="54" selection-end-column="30" />
+            <state relative-caret-position="368">
+              <caret line="76" column="38" lean-forward="true" selection-start-line="76" selection-start-column="38" selection-end-line="76" selection-end-column="38" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -149,17 +74,20 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/CityEvacuation/src/sample/gui/Evacuation.java" />
         <option value="$PROJECT_DIR$/CityEvacuation/src/sample/gui/Main.java" />
+        <option value="$PROJECT_DIR$/CityEvacuation/src/sample/structure/logic/Genotype.java" />
+        <option value="$PROJECT_DIR$/CityEvacuation/src/sample/gui/Evacuation.java" />
+        <option value="$PROJECT_DIR$/CityEvacuation/src/sample/structure/logic/Agent.java" />
+        <option value="$PROJECT_DIR$/CityEvacuation/src/sample/structure/logic/klich.java" />
         <option value="$PROJECT_DIR$/CityEvacuation/src/sample/gui/MainWindow.java" />
+        <option value="$PROJECT_DIR$/CityEvacuation/src/sample/gui/About.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1382" />
-    <option name="height" value="744" />
+    <option name="x" value="720" />
+    <option name="width" value="720" />
+    <option name="height" value="860" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -178,6 +106,7 @@
     <panes>
       <pane id="Scratches" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -344,7 +273,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -614,11 +542,18 @@
       <option name="project" value="LOCAL" />
       <updated>1496089904641</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Chart added">
+      <created>1496232050021</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1496232050021</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="720" y="0" width="720" height="860" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -630,19 +565,19 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27244094" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3291536" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22503328" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2306003" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4474432" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39957717" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39957717" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -656,7 +591,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Statistic added." />
-    <option name="LAST_COMMIT_MESSAGE" value="Statistic added." />
+    <MESSAGE value="Chart added" />
+    <option name="LAST_COMMIT_MESSAGE" value="Chart added" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -669,11 +605,241 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/CityEvacuation/src/sample/gui/MapEditor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="52" column="30" lean-forward="false" selection-start-line="52" selection-start-column="30" selection-end-line="54" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CityEvacuation/src/sample/structure/logic/Agent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="18" lean-forward="false" selection-start-line="12" selection-start-column="18" selection-end-line="12" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/CityEvacuation/src/sample/gui/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
           <caret line="12" column="38" lean-forward="false" selection-start-line="12" selection-start-column="38" selection-end-line="12" selection-end-column="38" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#377#378#0" expanded="false" />
+            <element signature="e#405#406#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CityEvacuation/src/sample/gui/Evacuation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2652">
+          <caret line="156" column="40" lean-forward="false" selection-start-line="156" selection-start-column="40" selection-end-line="156" selection-end-column="40" />
+          <folding>
+            <element signature="method#initVar#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#setPrimaryStage#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#drawCanvas#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#setLayerListChoiceBox#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#setSpeedSlider#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#setStatisticLabels#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#setLineChart#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#updateLineChart#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#statisticGrid#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#rightBar#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#setGridPane#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#setBackButton#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#setAgentCheckBox#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#updateLabels#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#setIterationButton#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#redrawCanvas#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#iteration#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#start#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#checker#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#addAllPointToMap#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#initMap#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#setupMap#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#Evacuation#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#restart#0;class#Evacuation#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CityEvacuation/src/sample/structure/logic/StaticPoint.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="8" column="34" lean-forward="false" selection-start-line="8" selection-start-column="34" selection-end-line="8" selection-end-column="34" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CityEvacuation/src/sample/structure/map/CityMap.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="578">
+          <caret line="55" column="5" lean-forward="false" selection-start-line="55" selection-start-column="5" selection-end-line="55" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CityEvacuation/src/sample/structure/logic/Genotype.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CityEvacuation/src/sample/structure/map/Fire.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="14" column="13" lean-forward="false" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CityEvacuation/src/sample/structure/points/permeable/Downstairs.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CityEvacuation/src/sample/gui/MainWindow.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1258">
+          <caret line="89" column="14" lean-forward="false" selection-start-line="89" selection-start-column="14" selection-end-line="89" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CityEvacuation/src/sample/gui/MapEditor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="52" column="30" lean-forward="false" selection-start-line="52" selection-start-column="30" selection-end-line="54" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CityEvacuation/src/sample/structure/logic/Agent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="18" lean-forward="false" selection-start-line="12" selection-start-column="18" selection-end-line="12" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CityEvacuation/src/sample/gui/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="12" column="38" lean-forward="false" selection-start-line="12" selection-start-column="38" selection-end-line="12" selection-end-column="38" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#377#378#0" expanded="false" />
+            <element signature="e#405#406#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CityEvacuation/src/sample/gui/Evacuation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1870">
+          <caret line="165" column="38" lean-forward="false" selection-start-line="165" selection-start-column="38" selection-end-line="165" selection-end-column="38" />
+          <folding>
+            <element signature="method#initVar#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#setPrimaryStage#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#drawCanvas#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#setLayerListChoiceBox#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#setSpeedSlider#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#setStatisticLabels#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#setLineChart#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#updateLineChart#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#statisticGrid#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#rightBar#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#setGridPane#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#setBackButton#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#setAgentCheckBox#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#updateLabels#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#setIterationButton#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#redrawCanvas#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#iteration#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#start#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#checker#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#addAllPointToMap#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#initMap#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#setupMap#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#Evacuation#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#restart#0;class#Evacuation#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CityEvacuation/src/sample/structure/logic/StaticPoint.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="8" column="34" lean-forward="false" selection-start-line="8" selection-start-column="34" selection-end-line="8" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CityEvacuation/src/sample/structure/map/CityMap.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="578">
+          <caret line="55" column="5" lean-forward="true" selection-start-line="55" selection-start-column="5" selection-end-line="55" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CityEvacuation/src/sample/structure/map/Fire.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="14" column="13" lean-forward="false" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CityEvacuation/src/sample/structure/points/permeable/Downstairs.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CityEvacuation/src/sample/gui/MainWindow.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1207">
+          <caret line="89" column="14" lean-forward="false" selection-start-line="89" selection-start-column="14" selection-end-line="89" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CityEvacuation/src/sample/gui/MapEditor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="52" column="30" lean-forward="false" selection-start-line="52" selection-start-column="30" selection-end-line="54" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CityEvacuation/src/sample/structure/logic/Genotype.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CityEvacuation/src/sample/gui/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="12" column="38" lean-forward="false" selection-start-line="12" selection-start-column="38" selection-end-line="12" selection-end-column="38" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#377#378#0" expanded="false" />
+            <element signature="e#405#406#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -682,16 +848,30 @@
         <state relative-caret-position="2805">
           <caret line="165" column="38" lean-forward="true" selection-start-line="165" selection-start-column="38" selection-end-line="165" selection-end-column="38" />
           <folding>
+            <element signature="method#initVar#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#setPrimaryStage#0;class#Evacuation#0" expanded="false" />
             <element signature="method#drawCanvas#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#setLayerListChoiceBox#0;class#Evacuation#0" expanded="false" />
             <element signature="method#setSpeedSlider#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#setStatisticLabels#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#setLineChart#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#updateLineChart#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#statisticGrid#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#rightBar#0;class#Evacuation#0" expanded="false" />
             <element signature="method#setGridPane#0;class#Evacuation#0" expanded="false" />
             <element signature="method#setBackButton#0;class#Evacuation#0" expanded="false" />
             <element signature="method#setAgentCheckBox#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#updateLabels#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#setIterationButton#0;class#Evacuation#0" expanded="false" />
             <element signature="method#redrawCanvas#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#iteration#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#start#0;class#Evacuation#0" expanded="false" />
             <element signature="method#checker#0;class#Evacuation#0" expanded="false" />
             <element signature="method#addAllPointToMap#0;class#Evacuation#0" expanded="false" />
             <element signature="method#initMap#0;class#Evacuation#0" expanded="false" />
             <element signature="method#setupMap#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#Evacuation#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#restart#0;class#Evacuation#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -740,10 +920,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="731">
           <caret line="43" column="5" lean-forward="true" selection-start-line="43" selection-start-column="5" selection-end-line="43" selection-end-column="5" />
-          <folding>
-            <element signature="e#1359#1360#0" expanded="true" />
-            <element signature="e#1392#1393#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -751,7 +928,11 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
           <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#377#378#0" expanded="false" />
+            <element signature="e#405#406#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -760,16 +941,30 @@
         <state relative-caret-position="5117">
           <caret line="301" column="42" lean-forward="true" selection-start-line="301" selection-start-column="42" selection-end-line="301" selection-end-column="42" />
           <folding>
+            <element signature="method#initVar#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#setPrimaryStage#0;class#Evacuation#0" expanded="false" />
             <element signature="method#drawCanvas#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#setLayerListChoiceBox#0;class#Evacuation#0" expanded="false" />
             <element signature="method#setSpeedSlider#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#setStatisticLabels#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#setLineChart#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#updateLineChart#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#statisticGrid#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#rightBar#0;class#Evacuation#0" expanded="false" />
             <element signature="method#setGridPane#0;class#Evacuation#0" expanded="false" />
             <element signature="method#setBackButton#0;class#Evacuation#0" expanded="false" />
             <element signature="method#setAgentCheckBox#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#updateLabels#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#setIterationButton#0;class#Evacuation#0" expanded="false" />
             <element signature="method#redrawCanvas#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#iteration#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#start#0;class#Evacuation#0" expanded="false" />
             <element signature="method#checker#0;class#Evacuation#0" expanded="false" />
             <element signature="method#addAllPointToMap#0;class#Evacuation#0" expanded="false" />
             <element signature="method#initMap#0;class#Evacuation#0" expanded="false" />
             <element signature="method#setupMap#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#Evacuation#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#restart#0;class#Evacuation#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -778,7 +973,11 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
           <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#377#378#0" expanded="false" />
+            <element signature="e#405#406#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -787,16 +986,30 @@
         <state relative-caret-position="9248">
           <caret line="544" column="29" lean-forward="false" selection-start-line="544" selection-start-column="29" selection-end-line="544" selection-end-column="29" />
           <folding>
+            <element signature="method#initVar#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#setPrimaryStage#0;class#Evacuation#0" expanded="false" />
             <element signature="method#drawCanvas#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#setLayerListChoiceBox#0;class#Evacuation#0" expanded="false" />
             <element signature="method#setSpeedSlider#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#setStatisticLabels#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#setLineChart#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#updateLineChart#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#statisticGrid#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#rightBar#0;class#Evacuation#0" expanded="false" />
             <element signature="method#setGridPane#0;class#Evacuation#0" expanded="false" />
             <element signature="method#setBackButton#0;class#Evacuation#0" expanded="false" />
             <element signature="method#setAgentCheckBox#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#updateLabels#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#setIterationButton#0;class#Evacuation#0" expanded="false" />
             <element signature="method#redrawCanvas#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#iteration#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#start#0;class#Evacuation#0" expanded="false" />
             <element signature="method#checker#0;class#Evacuation#0" expanded="false" />
             <element signature="method#addAllPointToMap#0;class#Evacuation#0" expanded="false" />
             <element signature="method#initMap#0;class#Evacuation#0" expanded="false" />
             <element signature="method#setupMap#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#Evacuation#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#restart#0;class#Evacuation#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -805,7 +1018,11 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
           <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#377#378#0" expanded="false" />
+            <element signature="e#405#406#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -814,16 +1031,30 @@
         <state relative-caret-position="8483">
           <caret line="533" column="0" lean-forward="true" selection-start-line="533" selection-start-column="0" selection-end-line="533" selection-end-column="0" />
           <folding>
+            <element signature="method#initVar#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#setPrimaryStage#0;class#Evacuation#0" expanded="false" />
             <element signature="method#drawCanvas#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#setLayerListChoiceBox#0;class#Evacuation#0" expanded="false" />
             <element signature="method#setSpeedSlider#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#setStatisticLabels#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#setLineChart#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#updateLineChart#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#statisticGrid#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#rightBar#0;class#Evacuation#0" expanded="false" />
             <element signature="method#setGridPane#0;class#Evacuation#0" expanded="false" />
             <element signature="method#setBackButton#0;class#Evacuation#0" expanded="false" />
             <element signature="method#setAgentCheckBox#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#updateLabels#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#setIterationButton#0;class#Evacuation#0" expanded="false" />
             <element signature="method#redrawCanvas#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#iteration#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#start#0;class#Evacuation#0" expanded="false" />
             <element signature="method#checker#0;class#Evacuation#0" expanded="false" />
             <element signature="method#addAllPointToMap#0;class#Evacuation#0" expanded="false" />
             <element signature="method#initMap#0;class#Evacuation#0" expanded="false" />
             <element signature="method#setupMap#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#Evacuation#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#restart#0;class#Evacuation#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -832,7 +1063,11 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
           <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#377#378#0" expanded="false" />
+            <element signature="e#405#406#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -841,16 +1076,30 @@
         <state relative-caret-position="1564">
           <caret line="126" column="43" lean-forward="true" selection-start-line="126" selection-start-column="43" selection-end-line="126" selection-end-column="43" />
           <folding>
+            <element signature="method#initVar#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#setPrimaryStage#0;class#Evacuation#0" expanded="false" />
             <element signature="method#drawCanvas#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#setLayerListChoiceBox#0;class#Evacuation#0" expanded="false" />
             <element signature="method#setSpeedSlider#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#setStatisticLabels#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#setLineChart#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#updateLineChart#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#statisticGrid#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#rightBar#0;class#Evacuation#0" expanded="false" />
             <element signature="method#setGridPane#0;class#Evacuation#0" expanded="false" />
             <element signature="method#setBackButton#0;class#Evacuation#0" expanded="false" />
             <element signature="method#setAgentCheckBox#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#updateLabels#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#setIterationButton#0;class#Evacuation#0" expanded="false" />
             <element signature="method#redrawCanvas#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#iteration#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#start#0;class#Evacuation#0" expanded="false" />
             <element signature="method#checker#0;class#Evacuation#0" expanded="false" />
             <element signature="method#addAllPointToMap#0;class#Evacuation#0" expanded="false" />
             <element signature="method#initMap#0;class#Evacuation#0" expanded="false" />
             <element signature="method#setupMap#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#Evacuation#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#restart#0;class#Evacuation#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -869,19 +1118,15 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CityEvacuation/src/sample/structure/logic/Agent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1097">
-          <caret line="162" column="32" lean-forward="true" selection-start-line="162" selection-start-column="32" selection-end-line="162" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/CityEvacuation/src/sample/gui/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
           <caret line="12" column="38" lean-forward="false" selection-start-line="12" selection-start-column="38" selection-end-line="12" selection-end-column="38" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#377#378#0" expanded="false" />
+            <element signature="e#405#406#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -909,10 +1154,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CityEvacuation/src/sample/gui/MainWindow.java">
+    <entry file="file://$PROJECT_DIR$/CityEvacuation/src/sample/structure/map/CityMap.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1258">
-          <caret line="89" column="14" lean-forward="false" selection-start-line="89" selection-start-column="14" selection-end-line="89" selection-end-column="14" />
+        <state relative-caret-position="578">
+          <caret line="55" column="5" lean-forward="false" selection-start-line="55" selection-start-column="5" selection-end-line="55" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CityEvacuation/src/sample/structure/logic/Genotype.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -925,40 +1178,67 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/CityEvacuation/src/sample/structure/logic/klich.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1751">
+          <caret line="103" column="132" lean-forward="false" selection-start-line="103" selection-start-column="132" selection-end-line="103" selection-end-column="132" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CityEvacuation/src/sample/structure/logic/Agent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="12" column="18" lean-forward="false" selection-start-line="12" selection-start-column="18" selection-end-line="12" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/CityEvacuation/src/sample/gui/Evacuation.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1870">
-          <caret line="165" column="38" lean-forward="false" selection-start-line="165" selection-start-column="38" selection-end-line="165" selection-end-column="38" />
+        <state relative-caret-position="663">
+          <caret line="327" column="0" lean-forward="false" selection-start-line="327" selection-start-column="0" selection-end-line="327" selection-end-column="0" />
           <folding>
+            <element signature="method#initVar#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#setPrimaryStage#0;class#Evacuation#0" expanded="false" />
             <element signature="method#drawCanvas#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#setLayerListChoiceBox#0;class#Evacuation#0" expanded="false" />
             <element signature="method#setSpeedSlider#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#setStatisticLabels#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#setLineChart#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#updateLineChart#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#statisticGrid#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#rightBar#0;class#Evacuation#0" expanded="false" />
             <element signature="method#setGridPane#0;class#Evacuation#0" expanded="false" />
             <element signature="method#setBackButton#0;class#Evacuation#0" expanded="false" />
             <element signature="method#setAgentCheckBox#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#updateLabels#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#setIterationButton#0;class#Evacuation#0" expanded="false" />
             <element signature="method#redrawCanvas#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#iteration#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#start#0;class#Evacuation#0" expanded="false" />
             <element signature="method#checker#0;class#Evacuation#0" expanded="false" />
             <element signature="method#addAllPointToMap#0;class#Evacuation#0" expanded="false" />
             <element signature="method#initMap#0;class#Evacuation#0" expanded="false" />
             <element signature="method#setupMap#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#Evacuation#0;class#Evacuation#0" expanded="false" />
+            <element signature="method#restart#0;class#Evacuation#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CityEvacuation/src/sample/structure/map/CityMap.java">
+    <entry file="file://$PROJECT_DIR$/CityEvacuation/src/sample/gui/MainWindow.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="55" column="5" lean-forward="true" selection-start-line="55" selection-start-column="5" selection-end-line="55" selection-end-column="5" />
-          <folding>
-            <element signature="e#1359#1360#0" expanded="true" />
-            <element signature="e#1392#1393#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="368">
+          <caret line="76" column="38" lean-forward="true" selection-start-line="76" selection-start-column="38" selection-end-line="76" selection-end-column="38" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CityEvacuation/src/sample/structure/logic/Genotype.java">
+    <entry file="file://$PROJECT_DIR$/CityEvacuation/src/sample/gui/About.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="16" column="23" lean-forward="false" selection-start-line="16" selection-start-column="23" selection-end-line="16" selection-end-column="23" />
+        <state relative-caret-position="51">
+          <caret line="3" column="26" lean-forward="false" selection-start-line="3" selection-start-column="26" selection-end-line="3" selection-end-column="26" />
           <folding />
         </state>
       </provider>

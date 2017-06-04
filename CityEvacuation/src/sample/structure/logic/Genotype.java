@@ -16,7 +16,6 @@ public class Genotype {
     public float iDontLikeFire; //1 = Stay cool, 0 = Burn motherf*cker
     public float laziness;
 
-
     public Genotype(){
         Random rand = new Random();
         do{

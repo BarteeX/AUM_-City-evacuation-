@@ -72,22 +72,14 @@ public class MainWindow extends Application {
     }
 
     private void setAboutButton() {
-        WebView browser = new WebView();
-        WebEngine webEngine = browser.getEngine();
-
         this.aboutButton = new Button("About");
         this.aboutButton.setOnAction(event -> {
-            Application about = new Application(){
-                @Override
-                public void start(Stage primaryStage) throws Exception {
-                    primaryStage.setScene(new Scene(browser));
-                    primaryStage.setWidth(browser.getWidth());
-                    primaryStage.setHeight(browser.getHeight());
-                    webEngine.load("https://drive.google.com/file/d/0B3THBykTbnecOUlLT0hPZk10VTg/view");
-                    primaryStage.show();
-                }
-            };
-            //about.start(new Stage());
+            About about = new About();
+            try {
+                about.start(new Stage());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         });
         this.aboutButton.setAlignment(Pos.CENTER);
         this.aboutButton.setMinWidth(this.width);

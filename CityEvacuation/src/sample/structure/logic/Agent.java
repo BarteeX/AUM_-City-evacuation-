@@ -3,13 +3,14 @@ package sample.structure.logic;
 import sample.structure.map.CityMap;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.Random;
 import java.util.List;
 import java.util.ArrayList;
 
 import static sample.structure.logic.ActionType.*;
 
-public class Agent  {
+public class Agent{
     public Point actualPosition;
     public Point lookingAt;
     private float score;

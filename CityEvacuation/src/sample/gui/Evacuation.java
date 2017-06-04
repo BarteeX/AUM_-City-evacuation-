@@ -154,6 +154,7 @@ public class Evacuation extends Application {
         NumberAxis yAxis = new NumberAxis();
         xAxis.setLabel("Number of Iteration");
         lineChart = new LineChart<>(xAxis, yAxis);
+        lineChart.setCreateSymbols(false);
         series = new XYChart.Series();
         lineChart.setMaxSize(100, 100);
     }
