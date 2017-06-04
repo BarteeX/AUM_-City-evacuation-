@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="658ef727-4d0c-4730-8836-22abfea35e80" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/CityEvacuation/src/sample/gui/About.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CityEvacuation/src/sample/gui/Evacuation.java" afterPath="$PROJECT_DIR$/CityEvacuation/src/sample/gui/Evacuation.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CityEvacuation/src/sample/gui/MainWindow.java" afterPath="$PROJECT_DIR$/CityEvacuation/src/sample/gui/MainWindow.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CityEvacuation/src/sample/structure/logic/Agent.java" afterPath="$PROJECT_DIR$/CityEvacuation/src/sample/structure/logic/Agent.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CityEvacuation/src/sample/structure/logic/Genotype.java" afterPath="$PROJECT_DIR$/CityEvacuation/src/sample/structure/logic/Genotype.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -20,22 +16,35 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="About.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/CityEvacuation/src/sample/gui/About.java">
+      <file leaf-file-name="Evacuation.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/CityEvacuation/src/sample/gui/Evacuation.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="3" column="26" lean-forward="false" selection-start-line="3" selection-start-column="26" selection-end-line="3" selection-end-column="26" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MainWindow.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CityEvacuation/src/sample/gui/MainWindow.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="368">
-              <caret line="76" column="38" lean-forward="true" selection-start-line="76" selection-start-column="38" selection-end-line="76" selection-end-column="38" />
-              <folding />
+            <state relative-caret-position="272">
+              <caret line="110" column="8" lean-forward="false" selection-start-line="110" selection-start-column="8" selection-end-line="110" selection-end-column="8" />
+              <folding>
+                <element signature="method#initVar#0;class#Evacuation#0" expanded="false" />
+                <element signature="method#drawCanvas#0;class#Evacuation#0" expanded="false" />
+                <element signature="method#setLayerListChoiceBox#0;class#Evacuation#0" expanded="false" />
+                <element signature="method#setSpeedSlider#0;class#Evacuation#0" expanded="false" />
+                <element signature="method#setStatisticLabels#0;class#Evacuation#0" expanded="false" />
+                <element signature="method#setLineChart#0;class#Evacuation#0" expanded="false" />
+                <element signature="method#updateLineChart#0;class#Evacuation#0" expanded="false" />
+                <element signature="method#statisticGrid#0;class#Evacuation#0" expanded="false" />
+                <element signature="method#rightBar#0;class#Evacuation#0" expanded="false" />
+                <element signature="method#setGridPane#0;class#Evacuation#0" expanded="false" />
+                <element signature="method#setBackButton#0;class#Evacuation#0" expanded="false" />
+                <element signature="method#setAgentCheckBox#0;class#Evacuation#0" expanded="false" />
+                <element signature="method#updateLabels#0;class#Evacuation#0" expanded="false" />
+                <element signature="method#setIterationButton#0;class#Evacuation#0" expanded="false" />
+                <element signature="method#redrawCanvas#0;class#Evacuation#0" expanded="false" />
+                <element signature="method#iteration#0;class#Evacuation#0" expanded="false" />
+                <element signature="method#checker#0;class#Evacuation#0" expanded="false" />
+                <element signature="method#addAllPointToMap#0;class#Evacuation#0" expanded="false" />
+                <element signature="method#initMap#0;class#Evacuation#0" expanded="false" />
+                <element signature="method#setupMap#0;class#Evacuation#0" expanded="false" />
+                <element signature="method#Evacuation#0;class#Evacuation#0" expanded="false" />
+                <element signature="method#restart#0;class#Evacuation#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -76,11 +85,11 @@
       <list>
         <option value="$PROJECT_DIR$/CityEvacuation/src/sample/gui/Main.java" />
         <option value="$PROJECT_DIR$/CityEvacuation/src/sample/structure/logic/Genotype.java" />
-        <option value="$PROJECT_DIR$/CityEvacuation/src/sample/gui/Evacuation.java" />
         <option value="$PROJECT_DIR$/CityEvacuation/src/sample/structure/logic/Agent.java" />
         <option value="$PROJECT_DIR$/CityEvacuation/src/sample/structure/logic/klich.java" />
         <option value="$PROJECT_DIR$/CityEvacuation/src/sample/gui/MainWindow.java" />
         <option value="$PROJECT_DIR$/CityEvacuation/src/sample/gui/About.java" />
+        <option value="$PROJECT_DIR$/CityEvacuation/src/sample/gui/Evacuation.java" />
       </list>
     </option>
   </component>
@@ -549,7 +558,14 @@
       <option name="project" value="LOCAL" />
       <updated>1496232050021</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="About button works.">
+      <created>1496606526418</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1496606526418</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -592,7 +608,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Statistic added." />
     <MESSAGE value="Chart added" />
-    <option name="LAST_COMMIT_MESSAGE" value="Chart added" />
+    <MESSAGE value="About button works." />
+    <option name="LAST_COMMIT_MESSAGE" value="About button works." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1194,13 +1211,28 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/CityEvacuation/src/sample/gui/MainWindow.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-743">
+          <caret line="34" column="29" lean-forward="true" selection-start-line="34" selection-start-column="29" selection-end-line="34" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CityEvacuation/src/sample/gui/About.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="26" lean-forward="false" selection-start-line="3" selection-start-column="26" selection-end-line="3" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/CityEvacuation/src/sample/gui/Evacuation.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="663">
-          <caret line="327" column="0" lean-forward="false" selection-start-line="327" selection-start-column="0" selection-end-line="327" selection-end-column="0" />
+        <state relative-caret-position="272">
+          <caret line="110" column="8" lean-forward="false" selection-start-line="110" selection-start-column="8" selection-end-line="110" selection-end-column="8" />
           <folding>
             <element signature="method#initVar#0;class#Evacuation#0" expanded="false" />
-            <element signature="method#setPrimaryStage#0;class#Evacuation#0" expanded="false" />
             <element signature="method#drawCanvas#0;class#Evacuation#0" expanded="false" />
             <element signature="method#setLayerListChoiceBox#0;class#Evacuation#0" expanded="false" />
             <element signature="method#setSpeedSlider#0;class#Evacuation#0" expanded="false" />
@@ -1216,7 +1248,6 @@
             <element signature="method#setIterationButton#0;class#Evacuation#0" expanded="false" />
             <element signature="method#redrawCanvas#0;class#Evacuation#0" expanded="false" />
             <element signature="method#iteration#0;class#Evacuation#0" expanded="false" />
-            <element signature="method#start#0;class#Evacuation#0" expanded="false" />
             <element signature="method#checker#0;class#Evacuation#0" expanded="false" />
             <element signature="method#addAllPointToMap#0;class#Evacuation#0" expanded="false" />
             <element signature="method#initMap#0;class#Evacuation#0" expanded="false" />
@@ -1224,22 +1255,6 @@
             <element signature="method#Evacuation#0;class#Evacuation#0" expanded="false" />
             <element signature="method#restart#0;class#Evacuation#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CityEvacuation/src/sample/gui/MainWindow.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="368">
-          <caret line="76" column="38" lean-forward="true" selection-start-line="76" selection-start-column="38" selection-end-line="76" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CityEvacuation/src/sample/gui/About.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="26" lean-forward="false" selection-start-line="3" selection-start-column="26" selection-end-line="3" selection-end-column="26" />
-          <folding />
         </state>
       </provider>
     </entry>

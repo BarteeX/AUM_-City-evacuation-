@@ -1,9 +1,11 @@
 package sample.gui;
 
+import com.sun.javafx.sg.prism.NGNode;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.geometry.*;
 import javafx.geometry.Insets;
+import javafx.scene.Camera;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.chart.LineChart;
@@ -60,6 +62,8 @@ public class Evacuation extends Application {
     private File directory;
     private int evacuated, died;
     private float statistic;
+    private float scale = 1;
+    private float actualScale = 1;
 
     private XYChart.Series series;
     private LineChart<Number, Number> lineChart;
@@ -98,7 +102,13 @@ public class Evacuation extends Application {
         primaryStage.setMinHeight(this.height*TILE_SIZE + 60);
         primaryStage.setWidth(this.width*TILE_SIZE + 280);
         primaryStage.setHeight(this.height*TILE_SIZE + 60);
-        primaryStage.setScene(new Scene(gridPane));
+        gridPane.setOnScroll(event -> {
+            actualScale *= (scale + event.getDeltaY()/100);
+            gridPane.setScaleX(actualScale);
+            gridPane.setScaleY(actualScale);
+        });
+        Scene scene = new Scene(gridPane);
+        primaryStage.setScene(scene);
     }
 
     private void drawCanvas() {
