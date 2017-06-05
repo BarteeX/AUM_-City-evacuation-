@@ -170,6 +170,7 @@ public class Evacuation extends Application {
     }
 
     private void updateLineChart() {
+        System.out.println(statistic);
         series.getData().add(new XYChart.Data<>(iterationCounter, statistic));
         lineChart.getData().add(series);
     }
